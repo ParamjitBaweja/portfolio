@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../theme';
 
+export type PhotoCategory = 'hiking' | 'travel' | 'sunset';
+
 export interface Photo {
   src: string;
   alt: string;
-  category: 'travel' | 'hiking' | 'sunset';
+  category: PhotoCategory;
 }
 
 const GalleryContainer = styled.div`
@@ -91,7 +93,7 @@ const CloseButton = styled.button`
 `;
 
 interface PhotoGalleryProps {
-  photos: ReadonlyArray<Photo>;
+  photos: readonly Photo[];
 }
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ photos }) => {

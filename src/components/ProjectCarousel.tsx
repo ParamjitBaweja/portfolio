@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface Project {
   id: string;
@@ -10,17 +9,21 @@ interface Project {
   images: string[];
   bullets: string[];
   brag: string;
+  role?: string;
+  impact?: string;
+  media?: { type: 'image' | 'video'; url: string; caption?: string }[];
+  externalLink?: string;
 }
 
 interface ProjectCarouselProps {
   projects: Project[];
+  onProjectClick: (projectId: string) => void;
 }
 
-const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects }) => {
+const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, onProjectClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
 
   const nextProject = useCallback(() => {
     setDirection(1);
@@ -77,144 +80,102 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects }) => {
     };
   }, [projects, nextProject, prevProject]);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (touchStart === null) return;
-    
-    const currentTouch = e.touches[0].clientX;
-    const diff = touchStart - currentTouch;
-
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        nextProject();
-      } else {
-        prevProject();
-      }
-      setTouchStart(null);
-    }
-  };
-
   const project = projects[currentIndex];
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0
-    })
-  };
 
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full max-w-7xl mx-auto px-4 select-none"
+      className="relative w-full max-w-7xl mx-auto px-4 select-none h-[50vh] min-h-[calc(80vh-6rem)] flex flex-col justify-between pb-30 mt-[64px]"
       style={{ paddingTop: 'calc(80px + 3rem)' }}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
     >
       <div className="w-full space-y-12">
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
-          <motion.div
+        <div 
+          className="bg-white shadow-xl rounded-2xl overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+          onClick={() => onProjectClick(project.id)}
+        >
+          <div
             key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
-            }}
-            className="grid md:grid-cols-2 gap-8 p-12"
+            className={`grid md:grid-cols-2 gap-8 md:p-12 p-6 transition-all duration-300 ease-in-out transform ${
+              direction > 0 ? 'slide-in-right' : 'slide-in-left'
+            }`}
           >
             {/* Image Section */}
             <div className="relative aspect-[4/3] w-full">
-              <motion.img
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
+              <img
                 src={project.images[0]}
                 alt={project.title}
-                className="w-full h-full object-cover rounded-xl shadow-lg"
+                className="w-full h-full object-cover rounded-xl shadow-lg transition-all duration-500 ease-in-out"
                 style={{ objectPosition: 'center' }}
               />
               {project.images[1] && (
-                <motion.img
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
+                <img
                   src={project.images[1]}
                   alt={`${project.title} secondary`}
-                  className="absolute bottom-4 right-4 w-40 h-40 object-cover rounded-xl border-4 border-white shadow-lg"
+                  className="absolute bottom-4 right-4 w-40 h-40 object-cover rounded-xl border-4 border-white shadow-lg transition-all duration-500 ease-in-out delay-300 md:block hidden"
                 />
               )}
             </div>
 
             {/* Content Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-8"
-            >
+            <div className="space-y-6 md:space-y-8">
               <div>
-                <h3 className="text-3xl font-bold text-gray-800">{project.title}</h3>
-                <p className="text-blue-600 font-medium text-lg mt-2">{project.year}</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-800">{project.title}</h3>
+                <p className="text-blue-600 font-medium text-base md:text-lg mt-2">{project.year}</p>
               </div>
 
-              <p className="text-gray-600 text-lg leading-relaxed">{project.description}</p>
+              <p className="text-gray-600 text-base md:text-lg leading-relaxed">{project.description}</p>
 
-              <div>
-                <h4 className="font-bold text-gray-800 text-xl mb-4">Key Achievements:</h4>
-                <ul className="space-y-3">
-                  {project.bullets.map((bullet, index) => (
-                    <motion.li
+              {/* Mobile achievements section */}
+              <div className="md:hidden">
+                <h4 className="font-bold text-gray-800 text-lg mb-2">Key Achievements:</h4>
+                <ul className="space-y-2">
+                  {project.bullets.slice(0, 2).map((bullet, index) => (
+                    <li
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
                       className="flex items-start"
                     >
-                      <span className="text-blue-600 mr-3 text-lg">•</span>
-                      <span className="text-gray-600 text-lg">{bullet}</span>
-                    </motion.li>
+                      <span className="text-blue-600 mr-2 text-base">•</span>
+                      <span className="text-gray-600 text-base">{bullet}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
+              {/* Desktop achievements section */}
+              <div className="md:block hidden">
+                <h4 className="font-bold text-gray-800 text-xl mb-4">Key Achievements:</h4>
+                <ul className="space-y-3">
+                  {project.bullets.map((bullet, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start"
+                    >
+                      <span className="text-blue-600 mr-3 text-lg">•</span>
+                      <span className="text-gray-600 text-lg">{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Brag section - desktop only */}
+              <div className="hidden md:block">
                 <h4 className="font-bold text-gray-800 text-xl mb-4">The Brag:</h4>
                 <p className="text-gray-600 italic text-lg">{project.brag}</p>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Progress Indicators */}
         <div className="flex justify-center space-x-3 pb-4">
           {projects.map((_, index) => (
-            <motion.button
+            <button
               key={index}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => goToProject(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              onClick={(e) => {
+                e.stopPropagation();
+                goToProject(index);
+              }}
+              className={`w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 ${
                 index === currentIndex 
                   ? 'bg-blue-600 scale-125' 
                   : 'bg-gray-300 hover:bg-blue-400'
@@ -225,22 +186,24 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects }) => {
       </div>
 
       {/* Navigation Buttons */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={prevProject}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-4 shadow-lg transition-colors rounded-r-xl backdrop-blur-sm"
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          prevProject();
+        }}
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 md:p-4 p-2 shadow-lg transition-all duration-300 rounded-r-xl backdrop-blur-sm hover:scale-110 active:scale-90"
       >
-        <ChevronLeft className="w-8 h-8" />
-      </motion.button>
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={nextProject}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-4 shadow-lg transition-colors rounded-l-xl backdrop-blur-sm"
+        <ChevronLeft className="md:w-8 md:h-8 w-6 h-6" />
+      </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          nextProject();
+        }}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 md:p-4 p-2 shadow-lg transition-all duration-300 rounded-l-xl backdrop-blur-sm hover:scale-110 active:scale-90"
       >
-        <ChevronRight className="w-8 h-8" />
-      </motion.button>
+        <ChevronRight className="md:w-8 md:h-8 w-6 h-6" />
+      </button>
     </div>
   );
 };

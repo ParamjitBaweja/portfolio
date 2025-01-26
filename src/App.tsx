@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navigation from './components/Navigation';
 import ProjectCarousel from './components/ProjectCarousel';
-import PhotoGallery, { Photo } from './components/PhotoGallery';
+import PhotoGallery from './components/PhotoGallery';
 import Resume from './components/Resume';
 import theme from './theme';
 import { motion } from 'framer-motion';
 import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
+import { projectsData } from './data/projects';
+import { Photo, PhotoCategory } from './components/PhotoGallery';
+import ProjectDetail from './components/ProjectDetail';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -156,6 +159,12 @@ const SocialLinks = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-bottom: 2rem;
+  
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
 `;
 
 const SocialLink = styled.a`
@@ -166,101 +175,16 @@ const SocialLink = styled.a`
   text-decoration: none;
   font-family: ${theme.typography.monoSpace};
   transition: ${theme.transitions.smooth};
+  
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 0.9rem;
+  }
 
   &:hover {
     color: ${theme.colors.accent};
     transform: translateY(-2px);
   }
 `;
-
-const generateId = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-
-const projectsData = [
-  {
-    id: 'aethon-robot',
-    title: "Hospital Logistics Robot - Aethon",
-    year: "2024",
-    description: "Developed navigation systems for autonomous hospital logistics robots at Aethon, improving healthcare efficiency.",
-    images: ["/assets/images/aethon-robot.jpg"],
-    bullets: [
-      "Developed navigation systems for autonomous hospital robots",
-      "Implemented efficient path planning algorithms",
-      "Integrated with hospital infrastructure"
-    ],
-    brag: "Successfully improved delivery efficiency by 40% across multiple hospitals",
-    technologies: ["ROS", "C++", "Python", "SLAM"]
-  },
-  {
-    id: 'knee-surgery',
-    title: "Robotic Knee Surgery Assistant",
-    year: "2023-2024",
-    description: "Led the development of precision control systems for robotic knee surgery assistance at CMU.",
-    images: ["/assets/images/knee-surgery.jpg"],
-    bullets: [
-      "Developed precision control systems for surgical robotics",
-      "Implemented safety protocols and redundancy checks",
-      "Created surgeon-robot interaction interface"
-    ],
-    brag: "Achieved sub-millimeter precision in surgical tool positioning",
-    technologies: ["ROS2", "C++", "Computer Vision", "Control Systems"]
-  },
-  {
-    id: 'medical-image',
-    title: "Medical Image Segmentation",
-    year: "2022",
-    description: "Created deep learning solutions for medical image analysis, improving surgical planning efficiency.",
-    images: ["/assets/images/medical-image.jpg"],
-    bullets: [
-      "Developed deep learning models for medical image segmentation",
-      "Implemented real-time processing pipeline",
-      "Created visualization tools for surgeons"
-    ],
-    brag: "Reduced segmentation time by 60% while maintaining 95% accuracy",
-    technologies: ["Python", "PyTorch", "OpenCV", "CUDA"]
-  },
-  {
-    id: 'underwater-robot',
-    title: "Underwater Robot Navigation",
-    year: "2022",
-    description: "Developed innovative navigation solutions for underwater robotics, published in a leading robotics journal.",
-    images: ["/assets/images/underwater.jpg"],
-    bullets: [
-      "Developed navigation system for underwater robots",
-      "Implemented SLAM in underwater environments",
-      "Created simulation environment for testing"
-    ],
-    brag: "Published in IEEE Robotics and Automation Letters",
-    technologies: ["ROS", "C++", "Gazebo", "Computer Vision"]
-  },
-  {
-    id: 'multi-robot',
-    title: "Multi-Robot Motion Planning",
-    year: "2021",
-    description: "Created a blockchain-based distributed motion planning system for multi-robot coordination.",
-    images: ["/assets/images/multi-robot.jpg"],
-    bullets: [
-      "Developed distributed motion planning algorithms",
-      "Implemented blockchain-based consensus",
-      "Created visualization and simulation framework"
-    ],
-    brag: "Presented at IROS Workshop on Distributed Robotics",
-    technologies: ["Python", "ROS", "Ethereum", "React"]
-  },
-  {
-    id: 'formula',
-    title: "Formula Student Driverless",
-    year: "2019",
-    description: "Pioneered autonomous racing technology for Formula Student competition, focusing on perception and control.",
-    images: ["/assets/images/formula.jpg"],
-    bullets: [
-      "Developed perception system for autonomous racing",
-      "Implemented path planning algorithms",
-      "Created real-time control system"
-    ],
-    brag: "Achieved autonomous lap times within 15% of human driver",
-    technologies: ["ROS", "C++", "Python", "Computer Vision"]
-  }
-];
 
 const timelineData = [
   {
@@ -289,42 +213,43 @@ const timelineData = [
   }
 ];
 
-const photoGalleryData: ReadonlyArray<Photo> = [
+const photoGalleryData: readonly Photo[] = [
   {
     src: "/assets/images/hiking1.jpg",
     alt: "Mountain hiking trail",
-    category: "hiking"
+    category: "hiking" as PhotoCategory
   },
   {
     src: "/assets/images/hiking2.jpg",
     alt: "Summit view",
-    category: "hiking"
+    category: "hiking" as PhotoCategory
   },
   {
     src: "/assets/images/travel1.jpg",
     alt: "City exploration",
-    category: "travel"
+    category: "travel" as PhotoCategory
   },
   {
     src: "/assets/images/travel2.jpg",
     alt: "Cultural site",
-    category: "travel"
+    category: "travel" as PhotoCategory
   },
   {
     src: "/assets/images/sunset1.jpg",
     alt: "Beach sunset",
-    category: "sunset"
+    category: "sunset" as PhotoCategory
   },
   {
     src: "/assets/images/sunset2.jpg",
     alt: "Mountain sunset",
-    category: "sunset"
+    category: "sunset" as PhotoCategory
   }
 ];
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   
   const heroTexts = [
     "Bridging the gap between\nhealthcare and technology",
@@ -343,6 +268,24 @@ function App() {
   const scrollToJourney = () => {
     document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleProjectClick = (projectId: string) => {
+    setSelectedProject(projectId);
+    document.body.style.overflow = 'auto';
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToProjects = () => {
+    setSelectedProject(null);
+    document.body.style.overflow = 'auto';
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  if (selectedProject) {
+    const project = projectsData.find(p => p.id === selectedProject);
+    if (!project) return null;
+    return <ProjectDetail project={project} onBack={handleBackToProjects} />;
+  }
 
   return (
     <>
@@ -416,7 +359,7 @@ function App() {
       </Section>
 
       <Section id="projects" noOverflow>
-        <ProjectCarousel projects={projectsData} />
+        <ProjectCarousel projects={projectsData} onProjectClick={handleProjectClick} />
       </Section>
 
       <Section id="resume">
