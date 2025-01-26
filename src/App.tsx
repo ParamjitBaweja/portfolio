@@ -141,6 +141,8 @@ const Footer = styled(Section)`
   padding: 4rem 0;
   background: ${theme.colors.background};
   text-align: center;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
 `;
 
 const ContactTitle = styled.h2`

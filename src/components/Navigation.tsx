@@ -42,8 +42,8 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled.a`
-  color: ${theme.colors.text};
+const NavLink = styled.a<{ active?: boolean }>`
+  color: ${props => props.active ? theme.colors.accent : theme.colors.text};
   text-decoration: none;
   font-size: 1rem;
   position: relative;
@@ -62,7 +62,7 @@ const NavLink = styled.a`
   }
 
   &:hover:after {
-    width: 100%;
+    width: ${props => props.active ? '0' : '100%'};
   }
 `;
 
@@ -70,10 +70,10 @@ const MobileMenu = styled.div`
   display: none;
   cursor: pointer;
   color: ${theme.colors.text};
+  padding: 0.5rem;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    display: flex;
-    align-items: center;
+    display: block;
   }
 `;
 
@@ -92,22 +92,59 @@ const MobileNav = styled.div<{ isOpen: boolean }>`
   transform: translateX(${props => props.isOpen ? '0' : '100%'});
   transition: ${theme.transitions.smooth};
   z-index: 1000;
+  padding: 2rem;
+
+  ${NavLink} {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 `;
 
-const CloseButton = styled(MobileMenu)`
+const CloseButton = styled.div`
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
   z-index: 1001;
+  display: flex;
+  cursor: pointer;
+  color: ${theme.colors.text};
+  padding: 0.5rem;
 `;
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Get all sections
+      const sections = ['home', 'journey', 'projects', 'resume', 'extracurriculars', 'contact'];
+      
+      // Check if we're near the bottom of the page first
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const bottomThreshold = document.documentElement.scrollHeight - 50;
+      
+      if (scrollPosition >= bottomThreshold) {
+        setActiveSection('contact');
+        return;
+      }
+
+      // Find the current section
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const offset = 200;
+          
+          if (rect.top <= offset && rect.bottom > offset) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -122,10 +159,11 @@ const Navigation: React.FC = () => {
             window.location.href = '/';
           }}>ParamjitBaweja</Logo>
           <NavLinks>
-            <NavLink href="#journey">Journey</NavLink>
-            <NavLink href="#projects">Projects</NavLink>
-            <NavLink href="#resume">Resume</NavLink>
-            <NavLink href="#extracurriculars">Beyond Code</NavLink>
+            <NavLink href="#journey" active={activeSection === 'journey'}>Journey</NavLink>
+            <NavLink href="#projects" active={activeSection === 'projects'}>Projects</NavLink>
+            <NavLink href="#resume" active={activeSection === 'resume'}>Resume</NavLink>
+            <NavLink href="#extracurriculars" active={activeSection === 'extracurriculars'}>Beyond Code</NavLink>
+            <NavLink href="#contact" active={activeSection === 'contact'}>Contact</NavLink>
           </NavLinks>
           <MobileMenu onClick={() => setIsMobileMenuOpen(true)}>
             <Menu size={24} />
@@ -137,10 +175,11 @@ const Navigation: React.FC = () => {
         <CloseButton onClick={() => setIsMobileMenuOpen(false)}>
           <X size={24} />
         </CloseButton>
-        <NavLink href="#journey" onClick={() => setIsMobileMenuOpen(false)}>Journey</NavLink>
-        <NavLink href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projects</NavLink>
-        <NavLink href="#resume" onClick={() => setIsMobileMenuOpen(false)}>Resume</NavLink>
-        <NavLink href="#extracurriculars" onClick={() => setIsMobileMenuOpen(false)}>Beyond Code</NavLink>
+        <NavLink href="#journey" active={activeSection === 'journey'} onClick={() => setIsMobileMenuOpen(false)}>Journey</NavLink>
+        <NavLink href="#projects" active={activeSection === 'projects'} onClick={() => setIsMobileMenuOpen(false)}>Projects</NavLink>
+        <NavLink href="#resume" active={activeSection === 'resume'} onClick={() => setIsMobileMenuOpen(false)}>Resume</NavLink>
+        <NavLink href="#extracurriculars" active={activeSection === 'extracurriculars'} onClick={() => setIsMobileMenuOpen(false)}>Beyond Code</NavLink>
+        <NavLink href="#contact" active={activeSection === 'contact'} onClick={() => setIsMobileMenuOpen(false)}>Contact</NavLink>
       </MobileNav>
     </>
   );
