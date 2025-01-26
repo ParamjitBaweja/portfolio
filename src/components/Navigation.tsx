@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import theme from '../theme';
+import { Menu, X } from 'lucide-react';
 
 const Nav = styled.nav<{ isScrolled: boolean }>`
   position: fixed;
@@ -10,7 +11,7 @@ const Nav = styled.nav<{ isScrolled: boolean }>`
   background: ${props => props.isScrolled ? theme.colors.navBackground : 'transparent'};
   backdrop-filter: ${props => props.isScrolled ? 'blur(8px)' : 'none'};
   box-shadow: ${props => props.isScrolled ? '0 2px 20px rgba(0, 0, 0, 0.1)' : 'none'};
-  z-index: 1000;
+  z-index: 100;
   transition: ${theme.transitions.smooth};
   font-family: ${theme.typography.fontFamily};
 `;
@@ -68,9 +69,11 @@ const NavLink = styled.a`
 const MobileMenu = styled.div`
   display: none;
   cursor: pointer;
+  color: ${theme.colors.text};
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -88,7 +91,14 @@ const MobileNav = styled.div<{ isOpen: boolean }>`
   gap: 2rem;
   transform: translateX(${props => props.isOpen ? '0' : '100%'});
   transition: ${theme.transitions.smooth};
-  z-index: 999;
+  z-index: 1000;
+`;
+
+const CloseButton = styled(MobileMenu)`
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1001;
 `;
 
 const Navigation: React.FC = () => {
@@ -118,17 +128,19 @@ const Navigation: React.FC = () => {
             <NavLink href="#extracurriculars">Beyond Code</NavLink>
           </NavLinks>
           <MobileMenu onClick={() => setIsMobileMenuOpen(true)}>
-            Menu
+            <Menu size={24} />
           </MobileMenu>
         </NavContent>
       </Nav>
 
       <MobileNav isOpen={isMobileMenuOpen}>
+        <CloseButton onClick={() => setIsMobileMenuOpen(false)}>
+          <X size={24} />
+        </CloseButton>
         <NavLink href="#journey" onClick={() => setIsMobileMenuOpen(false)}>Journey</NavLink>
         <NavLink href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projects</NavLink>
-        <NavLink href="#extracurriculars" onClick={() => setIsMobileMenuOpen(false)}>Beyond Code</NavLink>
         <NavLink href="#resume" onClick={() => setIsMobileMenuOpen(false)}>Resume</NavLink>
-        <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)} style={{ marginTop: '2rem' }}>Close</NavLink>
+        <NavLink href="#extracurriculars" onClick={() => setIsMobileMenuOpen(false)}>Beyond Code</NavLink>
       </MobileNav>
     </>
   );

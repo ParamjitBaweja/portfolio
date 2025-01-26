@@ -113,14 +113,25 @@ const ProjectLink = styled.a`
 const DownArrow = styled(motion.div)`
   position: absolute;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   cursor: pointer;
   color: ${theme.colors.accent};
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
   
   svg {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    bottom: 4rem;
   }
 `;
 
