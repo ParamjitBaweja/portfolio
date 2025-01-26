@@ -5,6 +5,7 @@ import ProjectCarousel from './components/ProjectCarousel';
 import PhotoGallery, { Photo } from './components/PhotoGallery';
 import Resume from './components/Resume';
 import theme from './theme';
+import { motion } from 'framer-motion';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -25,11 +26,15 @@ const Section = styled.section<{ noOverflow?: boolean }>`
 
 const HomePage = styled(Section)`
   background: ${theme.colors.background};
-  text-align: left;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   position: relative;
 `;
 
-const HeroText = styled.h1`
+const HeroText = styled(motion.h1)`
   font-size: 4.5rem;
   line-height: 1.1;
   margin-bottom: 2rem;
@@ -40,11 +45,11 @@ const HeroText = styled.h1`
   }
 `;
 
-const SubText = styled.p`
+const SubText = styled(motion.p)`
   font-size: 1.5rem;
   color: ${theme.colors.lightText};
   max-width: 600px;
-  margin-bottom: 3rem;
+  margin: 0 auto 3rem;
   font-family: ${theme.typography.monoSpace};
 `;
 
@@ -102,6 +107,20 @@ const ProjectLink = styled.a`
   
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const DownArrow = styled(motion.div)`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: ${theme.colors.accent};
+  
+  svg {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 `;
 
@@ -261,19 +280,45 @@ function App() {
     setIsLoaded(true);
   }, []);
 
+  const scrollToJourney = () => {
+    document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <Navigation />
       
       <HomePage id="home">
         <Container>
-          <HeroText>
+          <HeroText
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             Bridging the gap between<br />
             robotics and healthcare
           </HeroText>
-          <SubText>
+          <SubText
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             Robotics Engineer specializing in medical applications and autonomous systems
           </SubText>
+          <DownArrow
+            onClick={scrollToJourney}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </DownArrow>
         </Container>
       </HomePage>
 
