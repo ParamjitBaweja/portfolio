@@ -119,11 +119,12 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects }) => {
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full max-w-7xl mx-auto px-4 select-none min-h-screen flex items-center"
+      className="relative w-full max-w-7xl mx-auto px-4 select-none"
+      style={{ paddingTop: 'calc(80px + 3rem)' }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
     >
-      <div className="w-full space-y-8">
+      <div className="w-full space-y-12">
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
           <motion.div
             key={currentIndex}
@@ -206,7 +207,7 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects }) => {
         </div>
 
         {/* Progress Indicators */}
-        <div className="flex justify-center space-x-3">
+        <div className="flex justify-center space-x-3 pb-4">
           {projects.map((_, index) => (
             <motion.button
               key={index}

@@ -108,7 +108,9 @@ const Navigation: React.FC = () => {
     <>
       <Nav isScrolled={isScrolled}>
         <NavContent>
-          <Logo onClick={() => window.scrollTo(0, 0)}>ParamjitBaweja</Logo>
+          <Logo onClick={() => {
+            window.location.href = '/';
+          }}>ParamjitBaweja</Logo>
           <NavLinks>
             <NavLink href="#journey">Journey</NavLink>
             <NavLink href="#projects">Projects</NavLink>
