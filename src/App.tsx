@@ -6,6 +6,7 @@ import PhotoGallery, { Photo } from './components/PhotoGallery';
 import Resume from './components/Resume';
 import theme from './theme';
 import { motion } from 'framer-motion';
+import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -46,9 +47,9 @@ const HeroText = styled(motion.h1)`
 `;
 
 const SubText = styled(motion.p)`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: ${theme.colors.lightText};
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto 3rem;
   font-family: ${theme.typography.monoSpace};
 `;
@@ -112,7 +113,7 @@ const ProjectLink = styled.a`
 
 const DownArrow = styled(motion.div)`
   position: absolute;
-  bottom: 2rem;
+  bottom: 6rem;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -131,7 +132,42 @@ const DownArrow = styled(motion.div)`
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    bottom: 4rem;
+    bottom: 8rem;
+  }
+`;
+
+const Footer = styled(Section)`
+  min-height: auto;
+  padding: 4rem 0;
+  background: ${theme.colors.background};
+  text-align: center;
+`;
+
+const ContactTitle = styled.h2`
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: ${theme.colors.text};
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+`;
+
+const SocialLink = styled.a`
+  color: ${theme.colors.text};
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-family: ${theme.typography.monoSpace};
+  transition: ${theme.transitions.smooth};
+
+  &:hover {
+    color: ${theme.colors.accent};
+    transform: translateY(-2px);
   }
 `;
 
@@ -286,9 +322,20 @@ const photoGalleryData: ReadonlyArray<Photo> = [
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [textIndex, setTextIndex] = useState(0);
+  
+  const heroTexts = [
+    "Bridging the gap between\nhealthcare and technology",
+    "Building the future of \nrobotics",
+    "Innovating at the intersection of\nsoftware and hardware"
+  ];
 
   useEffect(() => {
     setIsLoaded(true);
+    const interval = setInterval(() => {
+      setTextIndex((current) => (current + 1) % heroTexts.length);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   const scrollToJourney = () => {
@@ -302,19 +349,25 @@ function App() {
       <HomePage id="home">
         <Container>
           <HeroText
-            initial={{ opacity: 0, y: 20 }}
+            key={textIndex}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
           >
-            Bridging the gap between<br />
-            robotics and healthcare
+            {heroTexts[textIndex].split('\n').map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                {i < heroTexts[textIndex].split('\n').length - 1 && <br />}
+              </React.Fragment>
+            ))}
           </HeroText>
           <SubText
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
           >
-            Robotics Engineer specializing in medical applications and autonomous systems
+            Hello! I'm Paramjit Singh Baweja, a Robotics Engineer aspiring to be a full-stack roboticist, building end-to-end robotic systems.
           </SubText>
           <DownArrow
             onClick={scrollToJourney}
@@ -373,6 +426,26 @@ function App() {
           <PhotoGallery photos={photoGalleryData} />
         </Container>
       </Section>
+
+      <Footer id="contact">
+        <Container>
+          <ContactTitle>Get in Touch</ContactTitle>
+          <SocialLinks>
+            <SocialLink href="https://linkedin.com/in/paramjitbaweja" target="_blank" rel="noopener noreferrer">
+              <Linkedin size={24} /> paramjitbaweja
+            </SocialLink>
+            <SocialLink href="https://github.com/paramjitbaweja" target="_blank" rel="noopener noreferrer">
+              <Github size={24} /> paramjitbaweja
+            </SocialLink>
+            <SocialLink href="https://instagram.com/paramjit.baweja" target="_blank" rel="noopener noreferrer">
+              <Instagram size={24} /> paramjit.baweja
+            </SocialLink>
+            <SocialLink href="mailto:paramjitbaweja@cmu.edu">
+              <Mail size={24} /> paramjitbaweja@cmu.edu
+            </SocialLink>
+          </SocialLinks>
+        </Container>
+      </Footer>
     </>
   );
 }

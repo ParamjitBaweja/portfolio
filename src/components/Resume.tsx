@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../theme';
 
 const ResumeContainer = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 1400px;
   margin: 0 auto;
   height: calc(100vh - 100px);
