@@ -355,9 +355,13 @@ function App() {
     const project = projectsData.find(p => p.id === projectId);
     if (project) {
       setLastScrollPosition(window.scrollY);
-      setSelectedProject(projectId);
-      document.body.style.overflow = 'auto';
+      // First scroll to top
       window.scrollTo(0, 0);
+      // Then set the selected project after a small delay
+      requestAnimationFrame(() => {
+        setSelectedProject(projectId);
+        document.body.style.overflow = 'auto';
+      });
     }
   };
 
