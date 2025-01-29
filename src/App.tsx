@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const Section = styled.section<{ noOverflow?: boolean; isResume?: boolean }>`
   min-height: ${props => props.isResume ? '100vh' : '80vh'};
-  padding: ${props => props.isResume ? '0 0 2.5rem 0' : '80px 0 3rem 0'};
+  padding: ${props => props.isResume ? '0 0 4.5rem 0' : '80px 0 3rem 0'};
   margin-top: ${props => props.isResume ? '0' : '-80px'};
   scroll-margin-top: 80px;
   display: flex;

@@ -15,7 +15,7 @@ const Resume = () => {
   return (
     <div className={`relative ${isFullScreen ? 'fixed inset-0 z-50 bg-white' : 'w-full max-w-4xl mx-auto'}`}>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-        <div className={`overflow-hidden ${isFullScreen ? 'h-screen' : 'h-[80vh]'} flex flex-col`}>
+        <div className={`overflow-hidden ${isFullScreen ? 'h-screen' : 'h-[70vh] md:h-[155vh]'} flex flex-col`}>
           {/* Toolbar */}
           <div className="flex justify-end p-2 bg-white">
             <Button
@@ -28,12 +28,12 @@ const Resume = () => {
             </Button>
           </div>
 
-          {/* PDF Viewer (No Black Borders) */}
+          {/* PDF Viewer */}
           <div className="flex-1 overflow-hidden">
             <Viewer
               fileUrl="/assets/documents/CV-ParamjitSingh.pdf"
               plugins={[defaultLayoutPluginInstance]}
-              defaultScale={SpecialZoomLevel.PageWidth} // Fits page width (no black bars)
+              defaultScale={SpecialZoomLevel.PageWidth}
               theme="light"
               renderLoader={() => (
                 <div className="flex items-center justify-center h-full">
