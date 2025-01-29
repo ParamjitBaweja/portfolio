@@ -14,11 +14,48 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
+    id: 'knee-surgery',
+    title: "Robotic Knee Surgery Assistant",
+    year: "August 2023 - December 2024",
+    description: "Explored the elimination of fiducial markers in robotic knee surgery using consumer-grade cameras and a custom-designed drill.",
+    images: ["/assets/images/knee-surgery.jpg"],
+    bullets: [
+      "Achieved an accuracy of 2 mm and 2 degrees, utilizing consumer-grade RealSense cameras and an off-the-shelf drill mounted on a custom 3D-printed end effector, effectively eliminating invasive fiducial trackers.",
+      "Implemented OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid planning architecture with a local planner performing real-time validity checks during execution. ",
+    ],
+    brag: "Achieved sub-millimeter precision in surgical tool positioning",
+    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
+    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery-interface.jpg',
+        caption: 'Surgeon interface display'
+      }
+    ],
+    externalLink: "https://mrsdprojects.ri.cmu.edu/2024teame/"
+  },
+  {
     id: 'aethon-robot',
     title: "Hospital Logistics Robot - Aethon",
-    year: "2024",
+    year: "May 2024 - August 2024",
     description: "Developed navigation systems for autonomous hospital logistics robots at Aethon, improving healthcare efficiency.",
-    images: ["/assets/images/aethon-robot.jpg"],
+    images: ["/assets/images/aethon-robot.png"],
     bullets: [
       "Developed navigation systems for autonomous hospital robots",
       "Implemented efficient path planning algorithms",
@@ -39,14 +76,14 @@ export const projectsData: Project[] = [
         caption: 'TUG Robot demonstration'
       }
     ],
-    externalLink: "https://aethon.com/tug/"
+    externalLink: "https://aethon.com/"
   },
   {
-    id: 'knee-surgery',
-    title: "Robotic Knee Surgery Assistant",
-    year: "2023-2024",
-    description: "Led the development of precision control systems for robotic knee surgery assistance at CMU.",
-    images: ["/assets/images/knee-surgery.jpg"],
+    id: 'medical-image',
+    title: "Medical Image Analysis",
+    year: "August 2021 - December 2021",
+    description: "Semantic segmentation of fundus images for the lab working on smartphone-based analysis of Fundus images to diagnose cardiac health.",
+    images: ["/assets/images/Fundus.jpg"],
     bullets: [
       "Developed precision control systems for surgical robotics",
       "Implemented safety protocols and redundancy checks",
@@ -68,8 +105,108 @@ export const projectsData: Project[] = [
       }
     ],
     externalLink: "https://biorobotics.ri.cmu.edu/"
+  },
+  {
+    id: 'MIS',
+    title: "Robotic Minimally Invasive Surgery Assistant",
+    year: "August 2021 - December 2021",
+    description: "Semantic segmentation of fundus images for the lab working on smartphone-based analysis of Fundus images to diagnose cardiac health.",
+    images: ["/assets/images/dvrk.jpg"],
+    bullets: [
+      "Developed precision control systems for surgical robotics",
+      "Implemented safety protocols and redundancy checks",
+      "Created surgeon-robot interaction interface"
+    ],
+    brag: "Achieved sub-millimeter precision in surgical tool positioning",
+    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
+    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery-interface.jpg',
+        caption: 'Surgeon interface display'
+      }
+    ],
+    externalLink: "https://biorobotics.ri.cmu.edu/"
+  },
+  {
+    id: 'underwater-robot',
+    title: "AUV Navigation",
+    year: "2021",
+    description: "Semantic segmentation of fundus images for the lab working on smartphone-based analysis of Fundus images to diagnose cardiac health.",
+    images: ["/assets/images/nio-bot.png"],
+    bullets: [
+      "Developed precision control systems for surgical robotics",
+      "Implemented safety protocols and redundancy checks",
+      "Created surgeon-robot interaction interface"
+    ],
+    brag: "Achieved sub-millimeter precision in surgical tool positioning",
+    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
+    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery-interface.jpg',
+        caption: 'Surgeon interface display'
+      }
+    ],
+    externalLink: "https://biorobotics.ri.cmu.edu/"
+  },
+  {
+    id: 'multi-robot',
+    title: "Multi-Robot Systems Research",
+    year: "2021",
+    description: "Introduction to research: developed innovative motion planning algorithms for multi-robot systems, later enhancing it with blockchain technology for an iROS workshop presentation.",
+    images: ["/assets/images/IROS.jpg"],
+    bullets: [
+      "Developed precision control systems for surgical robotics",
+      "Implemented safety protocols and redundancy checks",
+      "Created surgeon-robot interaction interface"
+    ],
+    brag: "Developed innovative motion planning algorithms for multi-robot systems",
+    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
+    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+    ],
+    externalLink: "https://biorobotics.ri.cmu.edu/"
+  },
+  {
+    id: 'formula',
+    title: "Driverless Autonomy Stack",
+    year: "2019 - 2022",
+    description: "Started exploring robotics with driverless car development, laying the foundation for my passion in autonomous systems.",
+    images: ["/assets/images/formula.jpeg"],
+    bullets: [
+      "Developed precision control systems for surgical robotics",
+      "Implemented safety protocols and redundancy checks",
+      "Created surgeon-robot interaction interface"
+    ],
+    brag: "Developed precision control systems for surgical robotics",
+    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
+    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/knee-surgery.jpg',
+        caption: 'Robotic surgical assistant in action'
+      },
+    ],
   }
-  // ... Add similar detailed data for other projects
 ];
 
 export default projectsData; 

@@ -10,6 +10,7 @@ import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
 import { projectsData } from './data/projects';
 import { Photo, PhotoCategory } from './components/PhotoGallery';
 import ProjectDetail from './components/ProjectDetail';
+import { timelineData } from './data/projectsData';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -17,9 +18,11 @@ const Container = styled.div`
   padding: 0 ${theme.spacing.grid};
 `;
 
-const Section = styled.section<{ noOverflow?: boolean }>`
-  min-height: 90vh;
-  padding: ${theme.spacing.section} 0;
+const Section = styled.section<{ noOverflow?: boolean; isResume?: boolean }>`
+  min-height: ${props => props.isResume ? '100vh' : '80vh'};
+  padding: ${props => props.isResume ? '0 0 2.5rem 0' : '80px 0 3rem 0'};
+  margin-top: ${props => props.isResume ? '0' : '-80px'};
+  scroll-margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,6 +39,8 @@ const HomePage = styled(Section)`
   justify-content: center;
   min-height: 100vh;
   position: relative;
+  padding: 80px 0 0 0;
+  margin-top: 0;
 `;
 
 const HeroText = styled(motion.h1)`
@@ -58,19 +63,39 @@ const SubText = styled(motion.p)`
 `;
 
 const TimelineContainer = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 `;
 
 const TimelineItem = styled.div`
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeIn 0.5s ease-out forwards;
   animation-play-state: paused;
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: ${theme.transitions.smooth};
+  border: 2px solid transparent;
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  gap: 2rem;
+  align-items: center;
 
   &.loaded {
     animation-play-state: running;
+  }
+
+  &:hover {
+    border-color: ${theme.colors.accent};
+    transform: translateY(-4px);
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    margin-bottom: 2rem;
   }
 
   @keyframes fadeIn {
@@ -81,20 +106,46 @@ const TimelineItem = styled.div`
   }
 `;
 
+const TimelineContent = styled.div`
+  flex: 1;
+`;
+
+const TimelineImage = styled.div`
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: ${theme.transitions.smooth};
+  }
+
+  ${TimelineItem}:hover & img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: 150px;
+  }
+`;
+
 const Year = styled.span`
   font-family: ${theme.typography.monoSpace};
   color: ${theme.colors.accent};
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 `;
 
 const TimelineTitle = styled.h3`
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 0.5rem 0;
 `;
 
 const TimelineDescription = styled.p`
   color: ${theme.colors.lightText};
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.6;
 `;
 
@@ -186,41 +237,26 @@ const SocialLink = styled.a`
   }
 `;
 
-const timelineData = [
-  {
-    year: "2023-2024",
-    title: "CMU & Medical Robotics",
-    description: "Led development of navigation systems for Aethon's hospital logistics robots and contributed to robotic knee replacement surgery research at CMU.",
-    projectIds: ["aethon-robot", "knee-surgery"]
-  },
-  {
-    year: "2022",
-    title: "University of Toronto & SickKids",
-    description: "Worked on automated assists for Minimally Invasive Surgeries, bridging robotics with healthcare. Published research on underwater robotics.",
-    projectIds: ["medical-image", "underwater-robot"]
-  },
-  {
-    year: "2021",
-    title: "Multi-Robot Systems Research",
-    description: "Developed innovative motion planning algorithms for multi-robot systems, later enhancing it with blockchain technology for an iROS workshop presentation.",
-    projectIds: ["multi-robot"]
-  },
-  {
-    year: "2019",
-    title: "Formula Manipal - Beginning of Robotics Journey",
-    description: "Started exploring robotics with driverless car development, laying the foundation for my passion in autonomous systems.",
-    projectIds: ["formula"]
-  }
-];
+const SectionTitle = styled.h2`
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: ${theme.colors.text};
+`;
 
 const photoGalleryData: readonly Photo[] = [
   {
-    src: "/assets/images/hiking1.jpg",
-    alt: "Mountain hiking trail",
+    src: "/assets/images/hiking2.jpg",
+    alt: "Summit view",
     category: "hiking" as PhotoCategory
   },
   {
-    src: "/assets/images/hiking2.jpg",
+    src: "/assets/images/hiking1.jpg",
+    alt: "Summit view",
+    category: "hiking" as PhotoCategory
+  },
+  {
+    src: "/assets/images/hiking3.jpg",
     alt: "Summit view",
     category: "hiking" as PhotoCategory
   },
@@ -236,20 +272,37 @@ const photoGalleryData: readonly Photo[] = [
   },
   {
     src: "/assets/images/sunset1.jpg",
-    alt: "Beach sunset",
+    alt: "Farm sunset",
+    category: "sunset" as PhotoCategory
+  },
+  // {
+  //   src: "/assets/images/Sunset2.mp4",
+  //   alt: "Airport sunset",
+  //   category: "sunset" as PhotoCategory
+  // },
+  {
+    src: "/assets/images/Sunset4.jpg",
+    alt: "Airport sunset",
     category: "sunset" as PhotoCategory
   },
   {
-    src: "/assets/images/sunset2.jpg",
+    src: "/assets/images/Sunset3.jpeg",
     alt: "Mountain sunset",
     category: "sunset" as PhotoCategory
   }
 ];
 
+// Add a new styled section specifically for Projects
+const ProjectsSection = styled(Section)`
+  min-height: 100vh; // Increased from 80vh to 100vh
+  padding: 80px 0 6rem 0; // Increased bottom padding
+`;
+
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [lastScrollPosition, setLastScrollPosition] = useState(0);
   
   const heroTexts = [
     "Bridging the gap between\nhealthcare and technology",
@@ -270,15 +323,39 @@ function App() {
   };
 
   const handleProjectClick = (projectId: string) => {
-    setSelectedProject(projectId);
-    document.body.style.overflow = 'auto';
-    window.scrollTo(0, 0);
+    const project = projectsData.find(p => p.id === projectId);
+    if (project) {
+      setLastScrollPosition(window.scrollY);
+      setSelectedProject(projectId);
+      document.body.style.overflow = 'auto';
+      window.scrollTo(0, 0);
+    }
   };
+
+  // Add a handler for hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash && projectsData.some(p => p.id === hash)) {
+        handleProjectClick(hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Check hash on initial load
+    if (window.location.hash) {
+      handleHashChange();
+    }
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handleBackToProjects = () => {
     setSelectedProject(null);
     document.body.style.overflow = 'auto';
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      window.scrollTo(0, lastScrollPosition);
+    });
   };
 
   if (selectedProject) {
@@ -333,41 +410,64 @@ function App() {
 
       <Section id="journey">
         <Container>
+          {/* <SectionTitle>My Journey</SectionTitle> */}
           <TimelineContainer>
             {timelineData.map((item, index) => (
               <TimelineItem 
                 key={index} 
                 className={isLoaded ? 'loaded' : ''}
+                onClick={() => {
+                  if (item.projectIds.length > 0) {
+                    handleProjectClick(item.projectIds[0]);
+                  }
+                }}
               >
-                <Year>{item.year}</Year>
-                <TimelineTitle>{item.title}</TimelineTitle>
-                <TimelineDescription>{item.description}</TimelineDescription>
-                <TimelineProjects>
-                  {item.projectIds.map((projectId, idx) => {
-                    const project = projectsData.find(p => p.id === projectId);
-                    return project ? (
-                      <ProjectLink key={idx} href={`#${projectId}`}>
-                        {project.title} →
-                      </ProjectLink>
-                    ) : null;
-                  })}
-                </TimelineProjects>
+                <TimelineContent>
+                  <Year>{item.year}</Year>
+                  <TimelineTitle>{item.title}</TimelineTitle>
+                  <TimelineDescription>{item.description}</TimelineDescription>
+                  <TimelineProjects>
+                    {item.projectIds.map((projectId, idx) => {
+                      const project = projectsData.find(p => p.id === projectId);
+                      return project ? (
+                        <ProjectLink 
+                          key={idx} 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleProjectClick(projectId);
+                          }}
+                        >
+                          {project.title} →
+                        </ProjectLink>
+                      ) : null;
+                    })}
+                  </TimelineProjects>
+                </TimelineContent>
+                <TimelineImage>
+                  {item.projectIds[0] && projectsData.find(p => p.id === item.projectIds[0])?.images[0] && (
+                    <img 
+                      src={projectsData.find(p => p.id === item.projectIds[0])?.images[0]} 
+                      alt={item.title}
+                    />
+                  )}
+                </TimelineImage>
               </TimelineItem>
             ))}
           </TimelineContainer>
         </Container>
       </Section>
 
-      <Section id="projects" noOverflow>
+      {/* <ProjectsSection id="projects" noOverflow>
         <ProjectCarousel projects={projectsData} onProjectClick={handleProjectClick} />
-      </Section>
+      </ProjectsSection> */}
 
-      <Section id="resume">
+      <Section id="resume" isResume>
         <Resume />
       </Section>
 
       <Section id="extracurriculars">
         <Container>
+          <SectionTitle>Beyond Code</SectionTitle>
           <PhotoGallery photos={photoGalleryData} />
         </Container>
       </Section>
@@ -382,9 +482,9 @@ function App() {
             <SocialLink href="https://github.com/paramjitbaweja" target="_blank" rel="noopener noreferrer">
               <Github size={24} /> paramjitbaweja
             </SocialLink>
-            <SocialLink href="https://instagram.com/paramjit.baweja" target="_blank" rel="noopener noreferrer">
+            {/* <SocialLink href="https://instagram.com/paramjit.baweja" target="_blank" rel="noopener noreferrer">
               <Instagram size={24} /> paramjit.baweja
-            </SocialLink>
+            </SocialLink> */}
             <SocialLink href="mailto:paramjitbaweja@cmu.edu">
               <Mail size={24} /> paramjitbaweja@cmu.edu
             </SocialLink>

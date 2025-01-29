@@ -165,24 +165,24 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, onProjectCl
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Progress Indicators */}
-        <div className="flex justify-center space-x-3 pb-4">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={(e) => {
-                e.stopPropagation();
-                goToProject(index);
-              }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 ${
-                index === currentIndex 
-                  ? 'bg-blue-600 scale-125' 
-                  : 'bg-gray-300 hover:bg-blue-400'
-              }`}
-            />
-          ))}
-        </div>
+      {/* Progress Indicators */}
+      <div className="flex justify-center space-x-3 mt-8">
+        {projects.map((_, index) => (
+          <button
+            key={index}
+            onClick={(e) => {
+              e.stopPropagation();
+              goToProject(index);
+            }}
+            className={`w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 ${
+              index === currentIndex 
+                ? 'bg-blue-600 scale-125' 
+                : 'bg-gray-300 hover:bg-blue-400'
+            }`}
+          />
+        ))}
       </div>
 
       {/* Navigation Buttons */}
@@ -191,7 +191,7 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, onProjectCl
           e.stopPropagation();
           prevProject();
         }}
-        className="absolute left-0 top-[75%] transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 md:p-4 p-2 shadow-lg transition-all duration-300 rounded-r-xl backdrop-blur-sm hover:scale-110 active:scale-90"
+        className="absolute left-0 top-[calc(55vh)] transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 md:p-4 p-2 shadow-lg transition-all duration-300 rounded-r-xl backdrop-blur-sm hover:scale-110 hover:translate-x-1 active:scale-90 z-10"
       >
         <ChevronLeft className="md:w-8 md:h-8 w-6 h-6" />
       </button>
@@ -200,7 +200,7 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, onProjectCl
           e.stopPropagation();
           nextProject();
         }}
-        className="absolute right-0 top-[75%] transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 md:p-4 p-2 shadow-lg transition-all duration-300 rounded-l-xl backdrop-blur-sm hover:scale-110 active:scale-90"
+        className="absolute right-0 top-[calc(55vh)] transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 md:p-4 p-2 shadow-lg transition-all duration-300 rounded-l-xl backdrop-blur-sm hover:scale-110 hover:-translate-x-1 active:scale-90 z-10"
       >
         <ChevronRight className="md:w-8 md:h-8 w-6 h-6" />
       </button>

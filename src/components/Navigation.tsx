@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import theme from '../theme';
 import { Menu, X } from 'lucide-react';
+import { projectsData } from '../data/projects';
 
 const Nav = styled.nav<{ isScrolled: boolean }>`
   position: fixed;
@@ -111,11 +112,56 @@ const CloseButton = styled.div`
   padding: 0.5rem;
 `;
 
+const NavLinkWithDropdown = styled(NavLink)`
+  position: relative;
+
+  &:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+`;
+
+const Dropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  background: ${theme.colors.navBackground};
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: ${theme.transitions.smooth};
+  min-width: 200px;
+  z-index: 1000;
+  margin-top: 0.5rem;
+`;
+
+const DropdownItem = styled.a`
+  display: block;
+  padding: 0.5rem 1rem;
+  color: ${theme.colors.text};
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: ${theme.transitions.smooth};
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: ${theme.colors.accent};
+  }
+`;
+
 interface NavigationProps {
   activeSection?: string;
+  onNavClick?: (sectionId: string) => void;
+  links?: string[]; // Optional array of links to show
 }
 
-const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSection }) => {
+const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSection, onNavClick, links }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -127,11 +173,11 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
       // Only check scroll position if no active section is provided via props
       if (!propActiveSection) {
         // Get all sections
-        const sections = ['home', 'journey', 'projects', 'resume', 'extracurriculars', 'contact'];
+        const sections = ['home', 'journey', 'resume', 'extracurriculars', 'contact'];
         
         // Check if we're near the bottom of the page first
         const scrollPosition = window.scrollY + window.innerHeight;
-        const bottomThreshold = document.documentElement.scrollHeight - 50;
+        const bottomThreshold = document.documentElement.scrollHeight - 100;
         
         if (scrollPosition >= bottomThreshold) {
           setActiveSection('contact');
@@ -143,7 +189,8 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
           const element = document.getElementById(section);
           if (element) {
             const rect = element.getBoundingClientRect();
-            const offset = 200;
+            // Adjust offset to account for navbar height and some padding
+            const offset = window.innerHeight * 0.25;
             
             if (rect.top <= offset && rect.bottom > offset) {
               setActiveSection(section);
@@ -158,8 +205,33 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
     return () => window.removeEventListener('scroll', handleScroll);
   }, [propActiveSection]);
 
+  const handleNavLinkClick = (sectionId: string) => {
+    if (onNavClick) {
+      onNavClick(sectionId);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   // Use prop value if provided, otherwise use state
   const currentSection = propActiveSection || activeSection;
+
+  // Define all available sections
+  const allSections = [
+    { id: 'journey', label: 'Journey' },
+    { id: 'resume', label: 'Resume' },
+    { id: 'extracurriculars', label: 'Beyond Code' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
+  // Filter sections based on links prop
+  const visibleSections = links 
+    ? allSections.filter(section => links.includes(section.id))
+    : allSections;
 
   return (
     <>
@@ -169,11 +241,55 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
             window.location.href = '/';
           }}>ParamjitBaweja</Logo>
           <NavLinks>
-            <NavLink href="#journey" active={currentSection === 'journey'}>Journey</NavLink>
-            <NavLink href="#aethon-robot" active={currentSection === 'projects'}>Projects</NavLink>
-            <NavLink href="#resume" active={currentSection === 'resume'}>Resume</NavLink>
-            <NavLink href="#extracurriculars" active={currentSection === 'extracurriculars'}>Beyond Code</NavLink>
-            <NavLink href="#contact" active={currentSection === 'contact'}>Contact</NavLink>
+            {visibleSections.map(section => {
+              if (section.id === 'projects' && !links) {
+                return (
+                  <NavLinkWithDropdown
+                    key={section.id}
+                    href={`#${section.id}`}
+                    active={currentSection === section.id}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavLinkClick(section.id);
+                    }}
+                  >
+                    {section.label}
+                    <Dropdown className="dropdown">
+                      {projectsData.map(project => (
+                        <DropdownItem
+                          key={project.id}
+                          href={`#${project.id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (onNavClick) {
+                              onNavClick(project.id);
+                            } else {
+                              // Handle project click in main view
+                              // You'll need to pass this handler from App.tsx
+                              window.location.hash = project.id;
+                            }
+                          }}
+                        >
+                          {project.title}
+                        </DropdownItem>
+                      ))}
+                    </Dropdown>
+                  </NavLinkWithDropdown>
+                );
+              }
+              return (
+                <NavLink
+                  key={section.id}
+                  href={`#${section.id}`}
+                  active={currentSection === section.id}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavLinkClick(section.id);
+                  }}
+                >{section.label}</NavLink>
+              );
+            })}
           </NavLinks>
           <MobileMenu onClick={() => setIsMobileMenuOpen(true)}>
             <Menu size={24} />
@@ -185,11 +301,53 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
         <CloseButton onClick={() => setIsMobileMenuOpen(false)}>
           <X size={24} />
         </CloseButton>
-        <NavLink href="#journey" active={currentSection === 'journey'} onClick={() => setIsMobileMenuOpen(false)}>Journey</NavLink>
-        <NavLink href="#aethon-robot" active={currentSection === 'projects'} onClick={() => setIsMobileMenuOpen(false)}>Projects</NavLink>
-        <NavLink href="#resume" active={currentSection === 'resume'} onClick={() => setIsMobileMenuOpen(false)}>Resume</NavLink>
-        <NavLink href="#extracurriculars" active={currentSection === 'extracurriculars'} onClick={() => setIsMobileMenuOpen(false)}>Beyond Code</NavLink>
-        <NavLink href="#contact" active={currentSection === 'contact'} onClick={() => setIsMobileMenuOpen(false)}>Contact</NavLink>
+        {visibleSections.map(section => {
+          if (section.id === 'projects' && !links) {
+            return (
+              <React.Fragment key={section.id}>
+                <NavLink
+                  href={`#${section.id}`}
+                  active={currentSection === section.id}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavLinkClick(section.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                >{section.label}</NavLink>
+                {projectsData.map(project => (
+                  <DropdownItem
+                    key={project.id}
+                    href={`#${project.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (onNavClick) {
+                        onNavClick(project.id);
+                      } else {
+                        window.location.hash = project.id;
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
+                    style={{ paddingLeft: '2rem' }}
+                  >
+                    {project.title}
+                  </DropdownItem>
+                ))}
+              </React.Fragment>
+            );
+          }
+          return (
+            <NavLink
+              key={section.id}
+              href={`#${section.id}`}
+              active={currentSection === section.id}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavLinkClick(section.id);
+                setIsMobileMenuOpen(false);
+              }}
+            >{section.label}</NavLink>
+          );
+        })}
       </MobileNav>
     </>
   );

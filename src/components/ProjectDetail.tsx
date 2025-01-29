@@ -9,10 +9,10 @@ import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px ${theme.spacing.grid} 0;
+  padding: 120px ${theme.spacing.grid} 0;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    padding-top: 60px;
+    padding-top: 100px;
   }
 `;
 
@@ -119,7 +119,8 @@ const ExternalLink = styled.a`
   color: ${theme.colors.accent};
   font-family: ${theme.typography.monoSpace};
   text-decoration: none;
-  margin-top: 2rem;
+  // margin-top: 2rem;
+  margin-bottom: 2rem;
   transition: ${theme.transitions.smooth};
   
   &:hover {
@@ -178,9 +179,30 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
+  const handleNavClick = (sectionId: string) => {
+    // Store the target section ID before unmounting
+    const targetSection = sectionId;
+    
+    // First unmount this component by calling onBack
+    onBack();
+    
+    // After the component is unmounted and main view is rendered,
+    // scroll to the target section
+    setTimeout(() => {
+      const element = document.getElementById(targetSection);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <>
-      <Navigation activeSection="projects" />
+      <Navigation 
+        activeSection="journey" 
+        onNavClick={handleNavClick}
+        links={['journey']}
+      />
       <Container>
         <BackButton onClick={onBack}>
           <ChevronLeft size={20} />
@@ -191,29 +213,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           <Title>{project.title}</Title>
           <Year>{project.year}</Year>
           
-          <Section>
-            <SectionTitle>About the Project</SectionTitle>
-            <Description>{project.description}</Description>
-          </Section>
-          
-          <Section>
-            <SectionTitle>Impact</SectionTitle>
-            <Description>{project.impact || "Impact details coming soon..."}</Description>
-          </Section>
-          
-          <Section>
-            <SectionTitle>My Role</SectionTitle>
-            <Description>{project.role || "Role details coming soon..."}</Description>
-          </Section>
-          
-          <Section>
-            <SectionTitle>The Brag</SectionTitle>
-            <Description>{project.brag}</Description>
-          </Section>
           
           {project.media && project.media.length > 0 && (
             <Section>
-              <SectionTitle>Project Media</SectionTitle>
+              {/* <SectionTitle>Project Media</SectionTitle> */}
               <MediaGrid>
                 {project.media.map((item, index) => (
                   <MediaItem key={index}>
@@ -228,12 +231,34 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               </MediaGrid>
             </Section>
           )}
-          
+
+          <Section>
+            <SectionTitle>About the Project</SectionTitle>
+            <Description>{project.description}</Description>
+          </Section>
           {project.externalLink && (
             <ExternalLink href={project.externalLink} target="_blank" rel="noopener noreferrer">
               Visit Project Website →
             </ExternalLink>
           )}
+
+          <Section>
+            <SectionTitle>Why?</SectionTitle>
+            <Description>{project.impact || "Impact details coming soon..."}</Description>
+          </Section>
+          
+          <Section>
+            <SectionTitle>My Role</SectionTitle>
+            <Description>{project.role || "Role details coming soon..."}</Description>
+          </Section>
+          
+          <Section>
+            <SectionTitle>The Brag</SectionTitle>
+            <Description>{project.brag}</Description>
+          </Section>
+          
+          
+
 
           <BackButton 
             onClick={onBack}
