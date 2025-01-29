@@ -85,6 +85,12 @@ const MediaGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin: 2rem 0;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    .media-item:nth-child(n+3) {
+      display: none;
+    }
+  }
 `;
 
 const MediaItem = styled.div`
@@ -219,7 +225,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               {/* <SectionTitle>Project Media</SectionTitle> */}
               <MediaGrid>
                 {project.media.map((item, index) => (
-                  <MediaItem key={index}>
+                  <MediaItem key={index} className="media-item">
                     {item.type === 'image' ? (
                       <img src={item.url} alt={item.caption || `Project media ${index + 1}`} />
                     ) : (
@@ -279,9 +285,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
             </SocialLink>
             <SocialLink href="https://github.com/paramjitbaweja" target="_blank" rel="noopener noreferrer">
               <Github size={24} /> paramjitbaweja
-            </SocialLink>
-            <SocialLink href="https://instagram.com/paramjit.baweja" target="_blank" rel="noopener noreferrer">
-              <Instagram size={24} /> paramjit.baweja
             </SocialLink>
             <SocialLink href="mailto:paramjitbaweja@cmu.edu">
               <Mail size={24} /> paramjitbaweja@cmu.edu

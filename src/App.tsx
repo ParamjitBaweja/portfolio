@@ -301,7 +301,6 @@ const ProjectsSection = styled(Section)`
 const CreditText = styled.p`
   font-size: 0.9rem;
   color: ${theme.colors.lightText};
-  // margin-top: 2rem;
   padding-top: 1.5rem;
   font-family: ${theme.typography.monoSpace};
   
@@ -312,6 +311,18 @@ const CreditText = styled.p`
     
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    .desktop-text {
+      display: none;
+    }
+  }
+
+  @media (min-width: ${theme.breakpoints.mobile}) {
+    .mobile-text {
+      display: none;
     }
   }
 `;
@@ -508,7 +519,12 @@ function App() {
             </SocialLink>
           </SocialLinks>
           <CreditText>
-            Made with support from the amazing <a href="https://www.linkedin.com/in/insha-manowar/" target="_blank" rel="noopener noreferrer">Insha Manowar</a>
+            <span className="desktop-text">
+              Made with support from the amazing <a href="https://www.linkedin.com/in/insha-manowar/" target="_blank" rel="noopener noreferrer">Insha Manowar</a>
+            </span>
+            <span className="mobile-text">
+              Made with support from <a href="https://www.linkedin.com/in/insha-manowar/" target="_blank" rel="noopener noreferrer">Insha</a>
+            </span>
           </CreditText>
         </Container>
       </Footer>
