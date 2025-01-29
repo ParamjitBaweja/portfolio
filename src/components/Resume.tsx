@@ -12,19 +12,25 @@ const ResumeContainer = styled.div`
   padding: 2rem 0;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    width: 95%;
+    width: 98%;
     padding: 1rem 0;
+    max-width: none;
   }
 `;
 
 const PDFViewer = styled.iframe`
   width: 100%;
-  min-height: 150vh; // Minimum height of viewport
-  height: 100%; // Fill available space
+  min-height: 150vh;
   border: none;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background: white;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    max-width: 100vw;
+    aspect-ratio: 8.5 / 11;
+    height: auto;
+  }
 `;
 
 const Resume: React.FC = () => {
