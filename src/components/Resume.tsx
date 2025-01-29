@@ -29,7 +29,7 @@ const PDFViewer = styled.iframe`
   @media (max-width: ${theme.breakpoints.mobile}) {
     max-width: 100vw;
     aspect-ratio: 8.5 / 11;
-    height: auto;
+    height: 100vh;
   }
 `;
 
