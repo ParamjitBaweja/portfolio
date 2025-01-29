@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nextui-org/button": "^2.2.9",
+    "@nextui-org/spinner": "^2.2.6",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@react-pdf-viewer/page-navigation": "^3.12.0",
+    "@react-pdf-viewer/zoom": "^3.12.0",
     "@types/leaflet": "^1.9.16",
     "@types/node": "^16.18.0",
     "@types/react": "^18.2.0",

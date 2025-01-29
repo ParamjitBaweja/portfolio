@@ -1,100 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Loader2, Maximize2, Minimize2 } from 'lucide-react';
+import { useState } from 'react';
+import { Viewer, Worker, SpecialZoomLevel } from '@react-pdf-viewer/core';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import { Spinner } from '@nextui-org/spinner';
+import { Button } from '@nextui-org/button';
+import { Expand, Minimize } from 'lucide-react';
+
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const Resume = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [iframeHeight, setIframeHeight] = useState('100vh');
-  const [scale, setScale] = useState(1);
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  const handleLoad = () => {
-    setIsLoading(false);
-    updateDimensions();
-  };
-
-  const updateDimensions = () => {
-    const container = document.getElementById('pdf-container');
-    if (container) {
-      const width = container.offsetWidth;
-      setContainerWidth(width);
-      const pdfWidth = 816;  // US Letter width in pixels
-      const pdfHeight = 1056; // US Letter height in pixels
-      const newScale = width / pdfWidth;
-      const scaledHeight = pdfHeight * newScale;
-      const maxHeight = window.innerHeight * 0.9; // 90vh max height
-      
-      setScale(Math.min(newScale, 1));
-      setIframeHeight(`${Math.min(scaledHeight, maxHeight)}px`);
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      updateDimensions();
-    };
-
-    // Initial update
-    updateDimensions();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const toggleFullScreen = () => {
-    setIsFullScreen(!isFullScreen);
-    // Re-calculate dimensions after toggling fullscreen
-    setTimeout(updateDimensions, 100);
-  };
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   return (
-    <div className={`relative transition-all duration-300 ease-in-out ${
-      isFullScreen 
-        ? 'fixed inset-0 z-50 bg-white' 
-        : 'w-full max-w-4xl mx-auto py-8 px-4 min-h-screen'
-    }`}>
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
-          <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
-        </div>
-      )}
-      
-      <button
-        onClick={toggleFullScreen}
-        className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 transition-colors"
-      >
-        {isFullScreen ? (
-          <Minimize2 className="h-5 w-5" />
-        ) : (
-          <Maximize2 className="h-5 w-5" />
-        )}
-      </button>
+    <div className={`relative ${isFullScreen ? 'fixed inset-0 z-50 bg-white' : 'w-full max-w-4xl mx-auto'}`}>
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+        <div className={`overflow-hidden ${isFullScreen ? 'h-screen' : 'h-[80vh]'} flex flex-col`}>
+          {/* Toolbar */}
+          <div className="flex justify-end p-2 bg-white">
+            <Button
+              isIconOnly
+              variant="light"
+              className="text-gray-600 hover:bg-gray-200"
+              onClick={() => setIsFullScreen(!isFullScreen)}
+            >
+              {isFullScreen ? <Minimize className="w-5 h-5" /> : <Expand className="w-5 h-5" />}
+            </Button>
+          </div>
 
-      <div 
-        id="pdf-container"
-        className={`w-full rounded-lg shadow-lg overflow-hidden bg-white ${
-          isFullScreen ? 'h-screen' : ''
-        }`}
-      >
-        <div className="w-full overflow-x-hidden" style={{
-          height: isFullScreen ? '100vh' : iframeHeight
-        }}>
-          <iframe
-            src="/assets/documents/CV-ParamjitSingh.pdf"
-            title="Resume"
-            className={`w-full border-0 transition-opacity duration-300 ${
-              isLoading ? 'opacity-0' : 'opacity-100'
-            }`}
-            style={{
-              width: `${100 / scale}%`,
-              transform: `scale(${scale})`,
-              transformOrigin: 'top left',
-              height: '1056px' // Original PDF height for accurate scaling
-            }}
-            onLoad={handleLoad}
-          />
+          {/* PDF Viewer (No Black Borders) */}
+          <div className="flex-1 overflow-hidden">
+            <Viewer
+              fileUrl="/assets/documents/CV-ParamjitSingh.pdf"
+              plugins={[defaultLayoutPluginInstance]}
+              defaultScale={SpecialZoomLevel.PageWidth} // Fits page width (no black bars)
+              theme="light"
+              renderLoader={() => (
+                <div className="flex items-center justify-center h-full">
+                  <Spinner size="lg" />
+                  <span className="ml-2 text-gray-600">Loading resume...</span>
+                </div>
+              )}
+            />
+          </div>
         </div>
-      </div>
+      </Worker>
     </div>
   );
 };
