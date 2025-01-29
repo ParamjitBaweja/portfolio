@@ -222,7 +222,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
 
   // Define all available sections
   const allSections = [
-    { id: 'journey', label: 'Journey' },
+    { id: 'journey', label: 'Projects' },
     { id: 'resume', label: 'Resume' },
     { id: 'extracurriculars', label: 'Beyond Code' },
     { id: 'contact', label: 'Contact' }
