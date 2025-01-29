@@ -298,6 +298,24 @@ const ProjectsSection = styled(Section)`
   padding: 80px 0 6rem 0; // Increased bottom padding
 `;
 
+const CreditText = styled.p`
+  font-size: 0.9rem;
+  color: ${theme.colors.lightText};
+  // margin-top: 2rem;
+  padding-top: 1.5rem;
+  font-family: ${theme.typography.monoSpace};
+  
+  a {
+    color: ${theme.colors.accent};
+    text-decoration: none;
+    transition: ${theme.transitions.smooth};
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
@@ -489,6 +507,9 @@ function App() {
               <Mail size={24} /> paramjitbaweja@cmu.edu
             </SocialLink>
           </SocialLinks>
+          <CreditText>
+            Made with support from the amazing <a href="https://www.linkedin.com/in/insha-manowar/" target="_blank" rel="noopener noreferrer">Insha Manowar</a>
+          </CreditText>
         </Container>
       </Footer>
     </>
