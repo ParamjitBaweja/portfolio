@@ -18,12 +18,15 @@ const Resume = () => {
     if (container) {
       const width = container.offsetWidth;
       setContainerWidth(width);
-      // Standard US Letter size PDF width is 8.5 inches (816 pixels at 96 DPI)
-      const pdfWidth = 816;
+      const pdfWidth = 816;  // US Letter width in pixels
+      const pdfHeight = 1056; // US Letter height in pixels
       const newScale = width / pdfWidth;
-      setScale(Math.min(newScale, 1)); // Don't scale up beyond 100%
+      const scaledHeight = pdfHeight * newScale;
+      const maxHeight = window.innerHeight * 0.9; // 90vh max height
+      
+      setScale(Math.min(newScale, 1));
+      setIframeHeight(`${Math.min(scaledHeight, maxHeight)}px`);
     }
-    setIframeHeight(window.innerHeight * 0.9 + 'px');
   };
 
   useEffect(() => {
@@ -73,7 +76,9 @@ const Resume = () => {
           isFullScreen ? 'h-screen' : ''
         }`}
       >
-        <div className="w-full overflow-x-hidden">
+        <div className="w-full overflow-x-hidden" style={{
+          height: isFullScreen ? '100vh' : iframeHeight
+        }}>
           <iframe
             src="/assets/documents/CV-ParamjitSingh.pdf"
             title="Resume"
@@ -81,10 +86,10 @@ const Resume = () => {
               isLoading ? 'opacity-0' : 'opacity-100'
             }`}
             style={{
-              height: isFullScreen ? '100vh' : iframeHeight,
               width: `${100 / scale}%`,
               transform: `scale(${scale})`,
-              transformOrigin: 'top left'
+              transformOrigin: 'top left',
+              height: '1056px' // Original PDF height for accurate scaling
             }}
             onLoad={handleLoad}
           />
