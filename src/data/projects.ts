@@ -21,14 +21,15 @@ export const projectsData: Project[] = [
     title: "Robotic Knee Surgery Assistant",
     year: "August 2023 - December 2024",
     description: "Explored the elimination of fiducial markers in robotic knee surgery using consumer-grade cameras and a custom-designed drill.",
+    longDescription: "TODO",
     images: ["/assets/images/knee-surgery.jpg"],
     bullets: [
       "Achieved an accuracy of 2 mm and 2 degrees, utilizing consumer-grade RealSense cameras and an off-the-shelf drill mounted on a custom 3D-printed end effector, effectively eliminating invasive fiducial trackers.",
       "Implemented OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid planning architecture with a local planner performing real-time validity checks during execution. ",
     ],
-    brag: "Achieved sub-millimeter precision in surgical tool positioning",
+    brag: "TODO",
     role: "I designed a custom 3D printed end effector with a RealSense camera, and a drill mounted on it. Through repeated intrinsic and extrinsic camera calibration and developing an auto-calibration routine for the external camera, ensuring robust patient registration, I reduced calibration error from 12 mm to under 2 mm. The registration achieved near perfect theoretical accuracy using DINO + SAM for global registration and ICP for local refinement. Additionally, I worked on OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid control scheme with a local planner, effectively handling velocity shocks during execution",
-    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    impact: "TODO",
     media: [
       {
         type: 'image',
@@ -58,15 +59,14 @@ export const projectsData: Project[] = [
     title: "Hospital Logistics Robot - Aethon",
     year: "May 2024 - August 2024",
     description: "Developed navigation systems for autonomous hospital logistics robots at Aethon, improving healthcare efficiency.",
+    longDescription: "TODO",
     images: ["/assets/images/aethon-robot.png"],
     bullets: [
-      "Developed navigation systems for autonomous hospital robots",
-      "Implemented efficient path planning algorithms",
-      "Integrated with hospital infrastructure"
+      ""
     ],
-    brag: "Successfully improved delivery efficiency by 40% across multiple hospitals",
+    brag: "TODO ",
     role: "I developed environmental motion forecasting for hospital AMRs using point cloud-based, sensor-agnostic methods. To allow the software to run on older robot models deployed in the field, I created a CPU-only algorithm that utilizes AMCL localization, ICP alignment, and density-based clustering for object tracking and prediction via Hungarian algorithm and particle filtering, optimized for older robot models. The system proved highly effective, achieving 90% accuracy in 20 real-robot tests, successfully predicting motion up to 6 meters ahead.",
-    impact: "The project significantly improved hospital logistics efficiency by automating the delivery of medications, supplies, and meals. This reduced the workload on healthcare staff, allowing them to focus more on patient care. The system has been successfully deployed in multiple hospitals across the United States, demonstrating its reliability and effectiveness.",
+    impact: "TODO ",
     media: [
       {
         type: 'image',
@@ -140,7 +140,7 @@ export const projectsData: Project[] = [
     bullets: [
       ""
     ],
-    brag: " ",
+    brag: "STORY: Iniitally, we were only able to cut simple open patterns autonomously. On friday, I was in the lab to meet with other lab mates, since I was flying back to India on Sunday and realized I needed to run one more experiement to get results for a presentation back in my university. While running the experiment, I realized we werent able to cut closed shapes since due to the loss in tension of the material. That is when we sat and designed the mount that held the material in place with paper clips and rubber bands. This allowed us to cut closed shapes, and we were able to get results for circle cutting to characherize the method for the paper.",
     role: "I designed a novel motion generator with trajectory generation and tracking capabilities, utilizing time-optimal path planning. This approach used a shared-autonomy based motion planning strategy for tissue-like materials. The Method created FLS circle-cutting 12x faster than the manual proficiency time, demonstrating significant improvement in efficiency.",
     impact: "This work enhances the precision and reliability of robotic-assisted minimally invasive surgeries (MIS), reducing human errors caused by fatigue or monotony. It outperforms existing autonomous systems in terms of success rates, error reduction, and task completion time. Additionally, the modularity of the framework suggests potential applications beyond pattern cutting, such as suturing or cauterizing, making it a valuable step toward advancing surgical robotics.",
     media: [
@@ -153,7 +153,22 @@ export const projectsData: Project[] = [
         type: 'video',
         url: '/assets/images/dvrk1.mp4',
         caption: 'Circle cutting on deformable material'
-      }
+      },
+      {
+        type: 'image',
+        url: '/assets/images/dvrk1.jpg',
+        caption: 'Different patterns on different elastic materials'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/dvrk2.png',
+        caption: 'Different patterns on different elastic materials'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/dvrk3.jpg',
+        caption: 'Different patterns on different elastic materials'
+      },
     ],
     externalLink: "https://medcvr.utm.utoronto.ca",
     additionalLinkName: "Paper Link",
@@ -215,13 +230,12 @@ export const projectsData: Project[] = [
     description: "Introduction to research: developed innovative motion planning algorithms for multi-robot systems, later enhancing it with blockchain technology for an iROS workshop presentation.",
     images: ["/assets/images/IROS.jpg"],
     bullets: [
-      "Developed precision control systems for surgical robotics",
-      "Implemented safety protocols and redundancy checks",
-      "Created surgeon-robot interaction interface"
+      " "
     ],
-    brag: "Developed innovative motion planning algorithms for multi-robot systems",
-    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
-    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    longDescription: "TODO",
+    brag: "TODO",
+    role: "TODO",
+    impact: "TODO",
     media: [
       {
         type: 'image',
