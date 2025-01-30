@@ -303,7 +303,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           </Section>
           {project.externalLink && (
             <ExternalLink href={project.externalLink} target="_blank" rel="noopener noreferrer">
-              Visit Project Website →
+              Visit Website →
+            </ExternalLink>
+          )}
+          {project.additionalLinkName && project.additionalLink && (
+            <ExternalLink href={project.additionalLink} target="_blank" rel="noopener noreferrer">
+              {project.additionalLinkName} →
             </ExternalLink>
           )}
 

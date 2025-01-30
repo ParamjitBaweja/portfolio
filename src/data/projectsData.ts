@@ -17,6 +17,8 @@ export interface Project {
   impact?: string;
   media?: ProjectMedia[];
   externalLink?: string;
+  additionalLinkName?: string;
+  additionalLink?: string;
   technologies: string[];
 }
 
