@@ -49,7 +49,7 @@ export const timelineData: TimelinePeriod[] = [
   {
     year: "May 2022 - August 2022",
     title: "University of Toronto x SickKids",
-    description: "Advancement of surgical subtask autonomy using the da Vinci Research Kit (dVRK), in collaboration with SickKids, Toronto.",
+    description: "Advancement of surgical subtask autonomy using the da Vinci Research Kit (dVRK), in collaboration with surgeons at The Hospital for Sick Children (SickKids), Toronto.",
     projectIds: ["MIS"]
   },
   {
@@ -61,13 +61,13 @@ export const timelineData: TimelinePeriod[] = [
   {
     year: "2021",
     title: "Multi-Robot Systems Research",
-    description: "Introduction to research: developed innovative motion planning algorithms for multi-robot systems, later enhancing it with blockchain technology for an iROS workshop presentation.",
+    description: "My introduction to research: worked on an Improved Partical Swarm Optimization based motion planning algorithm for multi-robot systems, later enhanced it with blockchain technology for the iROS workshop: Blockchain in robotics and AI",
     projectIds: ["multi-robot"]
   },
   {
     year: "October2019 - February 2022",
     title: "Formula Manipal x Manipal Institute of Technology",
-    description: "Started exploring robotics with driverless car development, laying the foundation for my passion in autonomous systems.",
+    description: "Started exploring robotics with driverless car development, laying the foundation for my passion in autonomous systems. Part of the founding team that worked on the first iteration of the driverless software for Formula Manipal.",
     projectIds: ["formula"]
   }
 ];

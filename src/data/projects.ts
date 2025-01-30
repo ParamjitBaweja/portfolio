@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   year: string;
   description: string;
+  longDescription?: string;
   images: string[];
   bullets: string[];
   brag: string;
@@ -83,28 +84,29 @@ export const projectsData: Project[] = [
     title: "Medical Image Analysis",
     year: "August 2021 - December 2021",
     description: "Semantic segmentation of fundus images for the lab working on smartphone-based analysis of Fundus images to diagnose cardiac health.",
+    longDescription: "Dr. Harish Kumar J.R.'s lab has a lot of work on fundus image analysis. There are multiple researchers working on things like Glaucoma detection, Diabetic Retinopathy detection, and Oximetry. An important component for any of these is the vessel segmentation of the fundus images. I worked with a fellow researcher, V. Manushree on this. \n Title: EFFICIENT LEARNING WITH LESS DATA FOR VESSEL EXTRACTION AND CLASSIFICATION IN SINGLE-WAVELENGTH FUNDUS IMAGES \n Paramjit Singh Baweja, V. Manushree, J.R. Harish Kumar.",
     images: ["/assets/images/Fundus.jpg"],
     bullets: [
       "Developed precision control systems for surgical robotics",
       "Implemented safety protocols and redundancy checks",
       "Created surgeon-robot interaction interface"
     ],
-    brag: "Achieved sub-millimeter precision in surgical tool positioning",
-    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
-    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    brag: "Received an undergraduate research grant from Manipal Academy of Higher Education of INR 10000 for GPU compute.",
+    role: "I implemented a data augmentation approach that mimicked human behavior through Spatial Pyramid Mapping and Super Resolution while working with fundus images. This approach led to a 6% increase in accuracy for multiclass segmentation, despite having only 92 data points. Additionally, we generated pseudo-labels to perform semi-supervised binary classification using an EfficientNetb0-based U-Net model. This technique proved successful, achieving an F1 score of 0.74 and marking a 4.9% improvement in F1 score for vessel extraction.",
+    impact: "The eye is the only part of the body where you can directly see live tissue. Looking at the fundus, you can see blood vessels which not only give you information about the health of the eye, but also about cardiac health. Traditionally, fundus images are taken with expensive dual wavelength cameras, which are not accessible to large parts of the world. This lab is builing on the work by Google's where they collected smartphone based fundus images from 1000s of people in various demographics, but ran into issues due to things like lighting and camera stbility, which limited the usability of the data. This lab, is working on building a frame that you can mount a smartphone on, and then use the camera to take fundus images.",
     media: [
       {
         type: 'image',
-        url: '/assets/images/knee-surgery.jpg',
-        caption: 'Robotic surgical assistant in action'
+        url: '/assets/images/Fundus1.jpg',
+        caption: 'Pipeline for fundus image analysis'
       },
       {
         type: 'image',
-        url: '/assets/images/knee-surgery-interface.jpg',
-        caption: 'Surgeon interface display'
+        url: '/assets/images/Fundus.jpg',
+        caption: 'Results'
       }
     ],
-    externalLink: "https://biorobotics.ri.cmu.edu/"
+    // externalLink: " "
   },
   {
     id: 'MIS',
@@ -141,11 +143,9 @@ export const projectsData: Project[] = [
     description: "Semantic segmentation of fundus images for the lab working on smartphone-based analysis of Fundus images to diagnose cardiac health.",
     images: ["/assets/images/nio-bot.png"],
     bullets: [
-      "Developed precision control systems for surgical robotics",
-      "Implemented safety protocols and redundancy checks",
-      "Created surgeon-robot interaction interface"
+      " ",
     ],
-    brag: "Achieved sub-millimeter precision in surgical tool positioning",
+    brag: "STORY: Initially, I thought this was a theoretical thought experiment, and lost touch with the project. In the summer of 2024, my sister interned with the institute, where she ran into a team working on actually inculcating this tech into their robot.",
     role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
     impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
     media: [
@@ -160,7 +160,7 @@ export const projectsData: Project[] = [
         caption: 'Surgeon interface display'
       }
     ],
-    externalLink: "https://biorobotics.ri.cmu.edu/"
+    externalLink: "https://ieeexplore.ieee.org/document/9775514"
   },
   {
     id: 'multi-robot',
@@ -183,29 +183,47 @@ export const projectsData: Project[] = [
         caption: 'Robotic surgical assistant in action'
       },
     ],
-    externalLink: "https://biorobotics.ri.cmu.edu/"
+    externalLink: "http://blockchaininroboticsandai.org/"
   },
   {
     id: 'formula',
-    title: "Driverless Autonomy Stack",
+    title: "Driverless Autonomy Stack", 
     year: "2019 - 2022",
-    description: "Started exploring robotics with driverless car development, laying the foundation for my passion in autonomous systems.",
+    description: "Began exploring robotics through driverless car development, laying the foundation for my passion in autonomous systems.",
+    longDescription: "Began exploring robotics through driverless car development, laying the foundation for my passion in autonomous systems. While Formula Manipal consistently won races at Formula Bharat, we needed to introduce a driverless subsystem to compete in the international versions of the competition.",
     images: ["/assets/images/formula.jpeg"],
     bullets: [
-      "Developed precision control systems for surgical robotics",
-      "Implemented safety protocols and redundancy checks",
-      "Created surgeon-robot interaction interface"
+      "Won first place at the Formula Student India 2021 Software Awards among 57 teams",
+      "Coordinated multidisciplinary teams to develop a ROS-compatible drive-by-wire system",
+      "Applied Extended Kalman Filters and Model Predictive Control for planning",
+      "Implemented monocular depth perception, reducing costs by 36%"
     ],
-    brag: "Developed precision control systems for surgical robotics",
-    role: "As a Research Assistant at CMU's Biorobotics Lab, I was responsible for developing the control system for the robotic surgical assistant. This involved implementing precise motion control algorithms, designing safety protocols, and creating an intuitive interface for surgeon interaction. I also collaborated with medical professionals to ensure the system met clinical requirements.",
-    impact: "The robotic assistant has the potential to significantly improve the accuracy and consistency of knee replacement surgeries. By providing precise tool positioning and real-time guidance, it helps surgeons achieve better outcomes. Early trials have shown promising results in terms of reduced operation time and improved accuracy.",
+    brag: "We built the first iteration of the driverless software, with a monocular depth perception system using known values from the racetrack. Moreover, we did this using only the compute available on our laptops. This version won the Software Awards at Formula Student India consecutively in 2020 and 2021. \n STORY: When we asked the university for more compute, they told us to use the HPC cluster that the university had. We attempted to, but it was extremely slow and outdated, such that even a browser would crash.",
+    role: "As Head of Controls & Systems Integration for the Formula Student Driverless team, I was key in the technical development of our autonomous racing car. I coordinated four multidisciplinary teams in designing and implementing a ROS-compatible drive-by-wire mechanism. My key contributions included implementing Extended Kalman Filters for localization, Model Predictive Control for local planning, and developing an innovative monocular depth perception system that replaced traditional stereo cameras - reducing equipment costs by 36% while halving computational requirements.",
+    impact: "Formula Student Germany introduced the driverless segment in 2015. While this segment was gaining popularity, no Indian team was developing this technology, primarily due to cost and funding considerations. We decided to give it a shot, and we won the Software Awards at Formula Bharat 2020.",
     media: [
       {
-        type: 'image',
-        url: '/assets/images/knee-surgery.jpg',
-        caption: 'Robotic surgical assistant in action'
+        type: 'video',
+        url: '/assets/images/Formula-Accln.mp4',
+        caption: 'Manual Acceleration test of car'
       },
+      {
+        type: 'video',
+        url: '/assets/images/Perception.mp4',
+        caption: 'Monoccular depth perception'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/formula2.jpg',
+        caption: 'Formula Bharat 2020'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/formula.jpeg',
+        caption: 'Formula Bharat 2020'
+      }
     ],
+    externalLink: "https://www.formulamanipal.in/"
   }
 ];
 

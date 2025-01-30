@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navigation from './Navigation';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, X } from 'lucide-react';
 import theme from '../theme';
 import { Project } from '../data/projects';
 import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
@@ -78,6 +78,7 @@ const Description = styled.p`
   line-height: 1.6;
   color: ${theme.colors.lightText};
   margin-bottom: 2rem;
+  white-space: pre-line;
 `;
 
 const MediaGrid = styled.div`
@@ -99,6 +100,7 @@ const MediaItem = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   aspect-ratio: 16/9;
+  cursor: pointer;
   
   img, video {
     width: 100%;
@@ -115,6 +117,55 @@ const MediaItem = styled.div`
     color: white;
     padding: 0.5rem;
     font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+  }
+
+  &:hover .caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const FullScreenModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const FullScreenContent = styled.div`
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+
+  img, video {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: -2rem;
+  right: -2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
   }
 `;
 
@@ -185,6 +236,8 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
+  const [selectedMedia, setSelectedMedia] = useState<{url: string, type: string, caption?: string} | null>(null);
+
   const handleNavClick = (sectionId: string) => {
     // Store the target section ID before unmounting
     const targetSection = sectionId;
@@ -201,6 +254,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
       }
     }, 100);
   };
+
+  // Split media items into two arrays
+  const primaryMedia = project.media?.slice(0, 2) || [];
+  const additionalMedia = project.media?.slice(2) || [];
 
   return (
     <>
@@ -219,13 +276,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           <Title>{project.title}</Title>
           <Year>{project.year}</Year>
           
-          
-          {project.media && project.media.length > 0 && (
+          {/* Primary Media Section (first 2 items) */}
+          {primaryMedia.length > 0 && (
             <Section>
-              {/* <SectionTitle>Project Media</SectionTitle> */}
               <MediaGrid>
-                {project.media.map((item, index) => (
-                  <MediaItem key={index} className="media-item">
+                {primaryMedia.map((item, index) => (
+                  <MediaItem 
+                    key={index} 
+                    onClick={() => setSelectedMedia(item)}
+                  >
                     {item.type === 'image' ? (
                       <img src={item.url} alt={item.caption || `Project media ${index + 1}`} />
                     ) : (
@@ -240,7 +299,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
 
           <Section>
             <SectionTitle>About the Project</SectionTitle>
-            <Description>{project.description}</Description>
+            <Description>{project.longDescription}</Description>
           </Section>
           {project.externalLink && (
             <ExternalLink href={project.externalLink} target="_blank" rel="noopener noreferrer">
@@ -259,12 +318,31 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           </Section>
           
           <Section>
-            <SectionTitle>The Brag</SectionTitle>
+            <SectionTitle>Brag</SectionTitle>
             <Description>{project.brag}</Description>
           </Section>
           
-          
-
+          {/* Additional Media Section (remaining items) */}
+          {additionalMedia.length > 0 && (
+            <Section>
+              <SectionTitle>More Media</SectionTitle>
+              <MediaGrid>
+                {additionalMedia.map((item, index) => (
+                  <MediaItem 
+                    key={index + 2} // offset by 2 to avoid key conflicts
+                    onClick={() => setSelectedMedia(item)}
+                  >
+                    {item.type === 'image' ? (
+                      <img src={item.url} alt={item.caption || `Project media ${index + 3}`} />
+                    ) : (
+                      <video src={item.url} controls />
+                    )}
+                    {item.caption && <div className="caption">{item.caption}</div>}
+                  </MediaItem>
+                ))}
+              </MediaGrid>
+            </Section>
+          )}
 
           <BackButton 
             onClick={onBack}
@@ -275,6 +353,21 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           </BackButton>
         </Content>
       </Container>
+
+      {selectedMedia && (
+        <FullScreenModal onClick={() => setSelectedMedia(null)}>
+          <FullScreenContent onClick={(e) => e.stopPropagation()}>
+            {selectedMedia.type === 'image' ? (
+              <img src={selectedMedia.url} alt={selectedMedia.caption || 'Full screen view'} />
+            ) : (
+              <video src={selectedMedia.url} controls autoPlay />
+            )}
+            <CloseButton onClick={() => setSelectedMedia(null)}>
+              <X size={24} />
+            </CloseButton>
+          </FullScreenContent>
+        </FullScreenModal>
+      )}
 
       <Footer>
         <Container>
