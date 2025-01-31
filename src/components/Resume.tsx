@@ -31,7 +31,7 @@ const Resume = () => {
           {/* PDF Viewer */}
           <div className="flex-1 overflow-hidden">
             <Viewer
-              fileUrl="/assets/documents/CV-ParamjitSingh.pdf"
+              fileUrl="./assets/documents/CV-ParamjitSingh.pdf"
               plugins={[defaultLayoutPluginInstance]}
               defaultScale={SpecialZoomLevel.PageWidth}
               theme="light"

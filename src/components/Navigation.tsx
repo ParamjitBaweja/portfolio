@@ -238,7 +238,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection: propActiveSectio
       <Nav isScrolled={isScrolled}>
         <NavContent>
           <Logo onClick={() => {
-            window.location.href = '/';
+            window.location.href = '/~paramjitbaweja/';
           }}>ParamjitBaweja</Logo>
           <NavLinks>
             {visibleSections.map(section => {
