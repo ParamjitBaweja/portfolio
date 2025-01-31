@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navigation from './Navigation';
 import { ChevronLeft, X } from 'lucide-react';
@@ -238,6 +238,29 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   const [selectedMedia, setSelectedMedia] = useState<{url: string, type: string, caption?: string} | null>(null);
 
+  // Add useEffect for setting up intersection observer
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target as HTMLVideoElement;
+          video.play().catch(err => console.log("Autoplay prevented:", err));
+        } else {
+          const video = entry.target as HTMLVideoElement;
+          video.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Observe all video elements
+    const videos = document.querySelectorAll('.project-video');
+    videos.forEach(video => observer.observe(video));
+
+    return () => {
+      videos.forEach(video => observer.unobserve(video));
+    };
+  }, []);
+
   const handleNavClick = (sectionId: string) => {
     // Store the target section ID before unmounting
     const targetSection = sectionId;
@@ -288,7 +311,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                     {item.type === 'image' ? (
                       <img src={item.url} alt={item.caption || `Project media ${index + 1}`} />
                     ) : (
-                      <video src={item.url} controls />
+                      <video 
+                        src={item.url} 
+                        className="project-video"
+                        controls 
+                        muted
+                        loop
+                        playsInline
+                      />
                     )}
                     {item.caption && <div className="caption">{item.caption}</div>}
                   </MediaItem>
@@ -344,7 +374,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
                     {item.type === 'image' ? (
                       <img src={item.url} alt={item.caption || `Project media ${index + 3}`} />
                     ) : (
-                      <video src={item.url} controls />
+                      <video 
+                        src={item.url} 
+                        className="project-video"
+                        controls 
+                        muted
+                        loop
+                        playsInline
+                      />
                     )}
                     {item.caption && <div className="caption">{item.caption}</div>}
                   </MediaItem>

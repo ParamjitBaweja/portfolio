@@ -330,22 +330,37 @@ const CreditText = styled.p`
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
   
   const heroTexts = [
+    "Building the future \nof robotics",
     "Bridging the gap between\nhealthcare and technology",
-    "Building the future of \nrobotics",
     "Innovating at the intersection of\nsoftware and hardware"
   ];
 
+  // Add useEffect to detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= parseInt(theme.breakpoints.mobile));
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     setIsLoaded(true);
-    const interval = setInterval(() => {
-      setTextIndex((current) => (current + 1) % heroTexts.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+    // Only set up the interval if not on mobile
+    if (!isMobile) {
+      const interval = setInterval(() => {
+        setTextIndex((current) => (current + 1) % heroTexts.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [isMobile]); // Add isMobile to dependencies
 
   const scrollToJourney = () => {
     document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' });
@@ -355,13 +370,9 @@ function App() {
     const project = projectsData.find(p => p.id === projectId);
     if (project) {
       setLastScrollPosition(window.scrollY);
-      // First scroll to top
-      window.scrollTo(0, 0);
-      // Then set the selected project after a small delay
-      requestAnimationFrame(() => {
         setSelectedProject(projectId);
         document.body.style.overflow = 'auto';
-      });
+      window.scrollTo(0, 0);
     }
   };
 
@@ -404,13 +415,13 @@ function App() {
       <HomePage id="home">
         <Container>
           <HeroText
-            key={textIndex}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            key={isMobile ? 'static' : textIndex}
+            initial={isMobile ? false : { opacity: 0, y: -20 }}
+            animate={isMobile ? {} : { opacity: 1, y: 0 }}
+            exit={isMobile ? {} : { opacity: 0, y: 20 }}
+            transition={isMobile ? {} : { duration: 1.2, ease: "easeInOut" }}
           >
-            {heroTexts[textIndex].split('\n').map((line, i) => (
+            {(isMobile ? heroTexts[0] : heroTexts[textIndex]).split('\n').map((line, i) => (
               <React.Fragment key={i}>
                 {line}
                 {i < heroTexts[textIndex].split('\n').length - 1 && <br />}
