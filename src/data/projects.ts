@@ -32,27 +32,46 @@ export const projectsData: Project[] = [
     impact: "As populations age, the incidences of osteoarthritis and rheumatoid arthritis are increasing. Osteoarthritis results in structural changes, leading to the deterioration of protective knee cartilage, reduced joint space, and painful bone-to-bone contact. Affecting millions worldwide, it causes pain, stiffness, and limited mobility, necessitating interventions, with Total Knee Arthroplasty (TKA) being a key solution. Annually, approximately 790,000 knee replacements are performed in the U.S., highlighting not only the widespread issue but also emphasizing the significance and effectiveness of TKA in providing relief and improving an individuals’ quality of life. The emergence of computer-assisted TKA, such as the system developed by Smith and Nephew, aims to enhance implant fitting for patients and reduce post-operative complications. Current technology relies on Infrared-based methods for registration and tracking, which are cumbersome, invasive, and introduce additional sources of error. A vision-based solution would eliminate the need for these methods, simplifying the procedure for both the surgeon and the patient. ",
     media: [
       {
+        type: 'video',
+        url: '/assets/images/paradocs2.mp4',
+        caption: 'Quick Trailer'
+      },
+      {
         type: 'image',
-        url: '/assets/images/knee-surgery.jpg',
-        caption: 'Robotic surgical assistant in action'
+        url: '/assets/images/paradocs3.png',
+        caption: 'The Poster'
+      },
+      {
+        type: 'video',
+        url: '/assets/images/paradocs3.mp4',
+        caption: 'Accuracy over time'
       },
       {
         type: 'image',
         url: '/assets/images/knee-surgery.jpg',
-        caption: 'Robotic surgical assistant in action'
+        caption: 'The robot'
+      },
+      {
+        type: 'video',
+        url: '/assets/images/paradocs4.mp4',
+        caption: 'Motion Compensation'
       },
       {
         type: 'image',
-        url: '/assets/images/knee-surgery.jpg',
-        caption: 'Robotic surgical assistant in action'
+        url: '/assets/images/paradocs2.jpg',
+        caption: 'The Team'
       },
       {
         type: 'image',
-        url: '/assets/images/knee-surgery-interface.jpg',
-        caption: 'Surgeon interface display'
-      }
+        url: '/assets/images/paradocs1.jpg',
+        caption: 'The class'
+      },
+
+
     ],
-    externalLink: "https://mrsdprojects.ri.cmu.edu/2024teame/"
+    externalLink: "https://mrsdprojects.ri.cmu.edu/2024teame/",
+    additionalLinkName: "Project Trailer",
+    additionalLink: "https://youtu.be/8AIk75IzMs4"
   },
   {
     id: 'aethon-robot',
