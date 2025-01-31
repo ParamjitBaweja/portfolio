@@ -15,7 +15,7 @@ const Resume = () => {
   return (
     <div className={`relative ${isFullScreen ? 'fixed inset-0 z-50 bg-white' : 'w-full max-w-4xl mx-auto'}`}>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-        <div className={`overflow-hidden ${isFullScreen ? 'h-screen' : 'h-[70vh] md:h-[155vh]'} flex flex-col`}>
+        <div className={`overflow-hidden ${isFullScreen ? 'h-screen' : 'h-[70vh] md:h-[1150px]'} flex flex-col`}>
           {/* Toolbar */}
           <div className="flex justify-end p-2 bg-white">
             <Button

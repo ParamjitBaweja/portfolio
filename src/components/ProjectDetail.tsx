@@ -262,20 +262,19 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   }, []);
 
   const handleNavClick = (sectionId: string) => {
-    // Store the target section ID before unmounting
-    const targetSection = sectionId;
+    // Clear the project hash and navigate to the section
+    window.location.hash = '';
     
-    // First unmount this component by calling onBack
-    onBack();
-    
-    // After the component is unmounted and main view is rendered,
-    // scroll to the target section
+    // After the hash is cleared and component unmounts
     setTimeout(() => {
-      const element = document.getElementById(targetSection);
+      const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }, 100);
+    
+    // Call onBack to unmount the component
+    onBack();
   };
 
   // Split media items into two arrays

@@ -370,18 +370,39 @@ function App() {
     const project = projectsData.find(p => p.id === projectId);
     if (project) {
       setLastScrollPosition(window.scrollY);
+      // Update the URL hash
+      window.location.hash = `project/${projectId}`;
+      // First scroll to top
+      window.scrollTo(0, 0);
+      // Then set the selected project
+      requestAnimationFrame(() => {
         setSelectedProject(projectId);
         document.body.style.overflow = 'auto';
-      window.scrollTo(0, 0);
+      });
     }
+  };
+
+  const handleBackToProjects = () => {
+    setSelectedProject(null);
+    document.body.style.overflow = 'auto';
+    // Clear the hash
+    window.location.hash = '';
+    requestAnimationFrame(() => {
+      window.scrollTo(0, lastScrollPosition);
+    });
   };
 
   // Add a handler for hash changes
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
-      if (hash && projectsData.some(p => p.id === hash)) {
-        handleProjectClick(hash);
+      if (hash.startsWith('project/')) {
+        const projectId = hash.replace('project/', '');
+        if (projectsData.some(p => p.id === projectId)) {
+          handleProjectClick(projectId);
+        }
+      } else if (!hash && selectedProject) {
+        handleBackToProjects();
       }
     };
 
@@ -392,15 +413,7 @@ function App() {
     }
 
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  const handleBackToProjects = () => {
-    setSelectedProject(null);
-    document.body.style.overflow = 'auto';
-    requestAnimationFrame(() => {
-      window.scrollTo(0, lastScrollPosition);
-    });
-  };
+  }, [selectedProject]);
 
   if (selectedProject) {
     const project = projectsData.find(p => p.id === selectedProject);
