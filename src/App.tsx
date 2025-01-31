@@ -271,7 +271,7 @@ const photoGalleryData: readonly Photo[] = [
     category: "travel" as PhotoCategory
   },
   {
-    src: "./assets/images/sunset1.jpg",
+    src: "./assets/images/Sunset1.jpg",
     alt: "Farm sunset",
     category: "sunset" as PhotoCategory
   },
