@@ -85,7 +85,7 @@ export const projectsData: Project[] = [
       },
       {
         type: 'image',
-        url: '/assets/images/aethon1.jpg',
+        url: '/assets/images/Aethon1.jpg',
         caption: 'The problem'
       },
       {

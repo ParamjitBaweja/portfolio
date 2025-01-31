@@ -334,7 +334,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           {/* Additional Media Section (remaining items) */}
           {additionalMedia.length > 0 && (
             <Section>
-              <SectionTitle>More Media</SectionTitle>
+              {/* <SectionTitle>More Media</SectionTitle> */}
               <MediaGrid>
                 {additionalMedia.map((item, index) => (
                   <MediaItem 
