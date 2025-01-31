@@ -21,15 +21,15 @@ export const projectsData: Project[] = [
     title: "Robotic Knee Surgery Assistant",
     year: "August 2023 - December 2024",
     description: "Explored the elimination of fiducial markers in robotic knee surgery using consumer-grade cameras and a custom-designed drill.",
-    longDescription: "TODO",
+    longDescription: "The project addresses the growing need for advanced surgical tools as aging populations lead to an increase in osteoarthritis cases worldwide. Total Knee Arthroplasty is a common solution, with over 790,000 procedures performed annually in the U.S. alone. Current technologies for TKA often rely on invasive infrared trackers, which can be cumbersome and error-prone. This project was initiated to provide a less invasive, more accurate, and efficient alternative using vision-based methods. By integrating robotics into the surgical process, the goal was to enhance implant fitting accuracy, reduce post-operative complications, and improve patient outcomes while simplifying the surgeon's workflow.",
     images: ["/assets/images/knee-surgery.jpg"],
     bullets: [
       "Achieved an accuracy of 2 mm and 2 degrees, utilizing consumer-grade RealSense cameras and an off-the-shelf drill mounted on a custom 3D-printed end effector, effectively eliminating invasive fiducial trackers.",
       "Implemented OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid planning architecture with a local planner performing real-time validity checks during execution. ",
     ],
-    brag: "TODO",
+    brag: "STORY: Over the course of a year, we have 4 demonstrations. Our project sponsors were visiting for the first time during our second last demo. This was the the first time they'd see our robot working in person. At 2 am on the day of the demo, the flex shaft to our drill machine broke. Since the drill machine is a very specific, model that is not common, we couldn't get a replacement for at least 2 days. In a couple of hours, we adapted the end effector to use a more common version of the drill, ran tests, and we were still able to hit our accuracy goals during the demo.",
     role: "I designed a custom 3D printed end effector with a RealSense camera, and a drill mounted on it. Through repeated intrinsic and extrinsic camera calibration and developing an auto-calibration routine for the external camera, ensuring robust patient registration, I reduced calibration error from 12 mm to under 2 mm. The registration achieved near perfect theoretical accuracy using DINO + SAM for global registration and ICP for local refinement. Additionally, I worked on OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid control scheme with a local planner, effectively handling velocity shocks during execution",
-    impact: "TODO",
+    impact: "As populations age, the incidences of osteoarthritis and rheumatoid arthritis are increasing. Osteoarthritis results in structural changes, leading to the deterioration of protective knee cartilage, reduced joint space, and painful bone-to-bone contact. Affecting millions worldwide, it causes pain, stiffness, and limited mobility, necessitating interventions, with Total Knee Arthroplasty (TKA) being a key solution. Annually, approximately 790,000 knee replacements are performed in the U.S., highlighting not only the widespread issue but also emphasizing the significance and effectiveness of TKA in providing relief and improving an individuals’ quality of life. The emergence of computer-assisted TKA, such as the system developed by Smith and Nephew, aims to enhance implant fitting for patients and reduce post-operative complications. Current technology relies on Infrared-based methods for registration and tracking, which are cumbersome, invasive, and introduce additional sources of error. A vision-based solution would eliminate the need for these methods, simplifying the procedure for both the surgeon and the patient. ",
     media: [
       {
         type: 'image',
@@ -59,14 +59,14 @@ export const projectsData: Project[] = [
     title: "Hospital Logistics Robot - Aethon",
     year: "May 2024 - August 2024",
     description: "Developed navigation systems for autonomous hospital logistics robots at Aethon, improving healthcare efficiency.",
-    longDescription: "TODO",
+    longDescription: "The project focuses on developing a sensor-agnostic motion forecasting system for environmental agents, specifically for robots used in hospital settings. The goal is to address navigation challenges caused by moving obstacles, such as people or objects, that can lead to deadlocks or unsafe situations. By predicting the trajectories of moving objects using point cloud data, the system integrates this information into the robot's costmap to enhance its local planning and obstacle avoidance capabilities. This approach avoids privacy concerns by not relying on RGB cameras and works across different generations of robots with varying sensor suites.",
     images: ["/assets/images/aethon-robot.png"],
     bullets: [
       ""
     ],
-    brag: "TODO ",
+    brag: "I tried more than 30 different variations with different algorithms and theories to get the methodology working with all the constraints. This is a problem that the company had been facing in hospitals for more than a decade.",
     role: "I developed environmental motion forecasting for hospital AMRs using point cloud-based, sensor-agnostic methods. To allow the software to run on older robot models deployed in the field, I created a CPU-only algorithm that utilizes AMCL localization, ICP alignment, and density-based clustering for object tracking and prediction via Hungarian algorithm and particle filtering, optimized for older robot models. The system proved highly effective, achieving 90% accuracy in 20 real-robot tests, successfully predicting motion up to 6 meters ahead.",
-    impact: "TODO ",
+    impact: "The project has significant implications for improving the safety and efficiency of autonomous robots in dynamic environments like hospitals. It helps avoid deadlocks where gurney's are blocked by robots, which is a big concern because these robots move in and out of operating rooms. By enabling robots to forecast motion and avoid collisions proactively, it reduces risks to patients and staff while ensuring smoother operations. The sensor-agnostic nature of the solution makes it adaptable to existing and future robot systems without requiring costly hardware upgrades. Additionally, the CPU-only implementation ensures compatibility with current computational constraints, making it a practical solution for real-world deployment. ",
     media: [
       {
         type: 'image',
@@ -232,18 +232,41 @@ export const projectsData: Project[] = [
     bullets: [
       " "
     ],
-    longDescription: "TODO",
-    brag: "TODO",
-    role: "TODO",
-    impact: "TODO",
+    longDescription: "The project, titled BlockMapping: A Blockchain-Based Multi-Robot Mapping, focuses on solving challenges in multi-robot systems for mapping large, unknown environments. It introduces a decentralized approach using blockchain technology to enable effective communication and collaboration between robots without relying on a central node. Each robot is treated as a block in a blockchain, sharing positional and mapping data with others to ensure that no area is redundantly mapped. The system integrates various sensors (e.g., IMU, LiDAR, GPS) and employs techniques like EKF-based sensor fusion for accurate localization and mapping. The methodology also addresses issues such as avoiding inter-robot collisions, dynamic obstacle detection, and seamless integration of new robots into the system.",
+    brag: "This started off as a tutorial project for ROS2, which then turned into something I got to present at an iROS workshop, where I got to meet and interact with a lot of great people, as a second year undergraduate student.",
+    role: "I worked on porting the intial implementation from ROS melodic to ROS2, getting the simulation environment up and running, in time when ROS2 was newly introduced, with little support. I tested and validated the system using TurtleBot robots in simulation environments, analyzing its performance under various conditions such as sparse environments.",
+    impact: "The project has a wide range of applications in areas like rescue missions, military operations, firefighting, and industrial automation. By leveraging blockchain's decentralized structure, it eliminates single points of failure and ensures secure communication among robots. This results in faster and more efficient mapping with minimized redundancies. The system is particularly effective in time-sensitive scenarios or environments with limited features, as it enables accurate localization and mapping while avoiding inter-robot collisions. Additionally, it supports dynamic scaling by allowing new robots to join the network without disrupting ongoing operations, making it a highly adaptable solution for real-world challenges.",
     media: [
+
       {
         type: 'image',
-        url: '/assets/images/knee-surgery.jpg',
-        caption: 'Robotic surgical assistant in action'
+        url: '/assets/images/iros3.jpg',
+        caption: 'mapping environment'
       },
+      {
+        type: 'image',
+        url: '/assets/images/iros2.jpg',
+        caption: 'mapping result'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/iros2.png',
+        caption: 'Presentation title'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/IROS.jpg',
+        caption: 'Overview of the system'
+      },
+      {
+        type: 'image',
+        url: '/assets/images/iros1.gif',
+        caption: 'mapping visualization'
+      }
     ],
-    externalLink: "http://blockchaininroboticsandai.org/"
+    externalLink: "http://blockchaininroboticsandai.org/",
+    additionalLinkName: "Presentation Link",
+    additionalLink: "https://docs.google.com/presentation/d/1-UrOwUZgiE32Violrpd2dwes5KJPp0draAKAScEmOYo/edit?usp=sharing"
   },
   {
     id: 'formula',
