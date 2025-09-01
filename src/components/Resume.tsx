@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Viewer, Worker, SpecialZoomLevel } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-import { Spinner } from '@nextui-org/spinner';
-import { Button } from '@nextui-org/button';
+import { Button, Spinner } from '@nextui-org/react';
 import { Expand, Minimize } from 'lucide-react';
+import { theme } from '../theme';
 
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const Resume = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [scale, setScale] = useState<number | SpecialZoomLevel>(SpecialZoomLevel.PageWidth);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(`(min-width: ${theme.breakpoints.mobile})`);
+    const handleResize = (e: MediaQueryListEvent | MediaQueryList) => {
+      setScale(e.matches ? 1.3 : SpecialZoomLevel.PageWidth);
+    };
+
+    // Initial check
+    handleResize(mediaQuery);
+
+    // Add listener for changes
+    mediaQuery.addListener(handleResize);
+
+    return () => mediaQuery.removeListener(handleResize);
+  }, []);
 
   return (
     <div className={`relative ${isFullScreen ? 'fixed inset-0 z-50 bg-white' : 'w-full max-w-4xl mx-auto'}`}>
@@ -31,9 +47,9 @@ const Resume = () => {
           {/* PDF Viewer */}
           <div className="flex-1 overflow-hidden">
             <Viewer
-              fileUrl="/assets/documents/CV-ParamjitSingh.pdf"
+              fileUrl="./assets/documents/CV-ParamjitSingh.pdf"
               plugins={[defaultLayoutPluginInstance]}
-              defaultScale={SpecialZoomLevel.PageWidth}
+              defaultScale={scale}
               theme="light"
               renderLoader={() => (
                 <div className="flex items-center justify-center h-full">

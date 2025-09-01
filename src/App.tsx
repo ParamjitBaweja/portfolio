@@ -246,32 +246,32 @@ const SectionTitle = styled.h2`
 
 const photoGalleryData: readonly Photo[] = [
   {
-    src: "/assets/images/hiking2.jpg",
+    src: "./assets/images/hiking2.jpg",
     alt: "Summit view",
     category: "hiking" as PhotoCategory
   },
   {
-    src: "/assets/images/hiking1.jpg",
+    src: "./assets/images/hiking1.jpg",
     alt: "Summit view",
     category: "hiking" as PhotoCategory
   },
   {
-    src: "/assets/images/hiking3.jpg",
+    src: "./assets/images/hiking3.jpg",
     alt: "Summit view",
     category: "hiking" as PhotoCategory
   },
   {
-    src: "/assets/images/travel1.jpg",
+    src: "./assets/images/travel1.jpg",
     alt: "City exploration",
     category: "travel" as PhotoCategory
   },
   {
-    src: "/assets/images/travel2.jpg",
+    src: "./assets/images/travel2.jpg",
     alt: "Cultural site",
     category: "travel" as PhotoCategory
   },
   {
-    src: "/assets/images/sunset1.jpg",
+    src: "./assets/images/Sunset1.jpg",
     alt: "Farm sunset",
     category: "sunset" as PhotoCategory
   },
@@ -281,12 +281,12 @@ const photoGalleryData: readonly Photo[] = [
   //   category: "sunset" as PhotoCategory
   // },
   {
-    src: "/assets/images/Sunset4.jpg",
+    src: "./assets/images/Sunset4.jpg",
     alt: "Airport sunset",
     category: "sunset" as PhotoCategory
   },
   {
-    src: "/assets/images/Sunset3.jpeg",
+    src: "./assets/images/Sunset3.jpeg",
     alt: "Mountain sunset",
     category: "sunset" as PhotoCategory
   }

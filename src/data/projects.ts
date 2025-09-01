@@ -22,52 +22,50 @@ export const projectsData: Project[] = [
     year: "August 2023 - December 2024",
     description: "Explored the elimination of fiducial markers in robotic knee surgery using consumer-grade cameras and a custom-designed drill.",
     longDescription: "The project addresses the growing need for advanced surgical tools as aging populations lead to an increase in osteoarthritis cases worldwide. Total Knee Arthroplasty is a common solution, with over 790,000 procedures performed annually in the U.S. alone. Current technologies for TKA often rely on invasive infrared trackers, which can be cumbersome and error-prone. This project was initiated to provide a less invasive, more accurate, and efficient alternative using vision-based methods. By integrating robotics into the surgical process, the goal was to enhance implant fitting accuracy, reduce post-operative complications, and improve patient outcomes while simplifying the surgeon's workflow.",
-    images: ["/assets/images/knee-surgery.jpg"],
+    images: ["./assets/images/knee-surgery.jpg"],
     bullets: [
       "Achieved an accuracy of 2 mm and 2 degrees, utilizing consumer-grade RealSense cameras and an off-the-shelf drill mounted on a custom 3D-printed end effector, effectively eliminating invasive fiducial trackers.",
       "Implemented OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid planning architecture with a local planner performing real-time validity checks during execution. ",
     ],
     brag: "STORY: Over the course of a year, we have 4 demonstrations. Our project sponsors were visiting for the first time during our second last demo. This was the the first time they'd see our robot working in person. At 2 am on the day of the demo, the flex shaft to our drill machine broke. Since the drill machine is a very specific, model that is not common, we couldn't get a replacement for at least 2 days. In a couple of hours, we adapted the end effector to use a more common version of the drill, ran tests, and we were still able to hit our accuracy goals during the demo.",
     role: "I designed a custom 3D printed end effector with a RealSense camera, and a drill mounted on it. Through repeated intrinsic and extrinsic camera calibration and developing an auto-calibration routine for the external camera, ensuring robust patient registration, I reduced calibration error from 12 mm to under 2 mm. The registration achieved near perfect theoretical accuracy using DINO + SAM for global registration and ICP for local refinement. Additionally, I worked on OMPL-constrained planning for predictable manipulator motion and integrated it into a hybrid control scheme with a local planner, effectively handling velocity shocks during execution",
-    impact: "As populations age, the incidences of osteoarthritis and rheumatoid arthritis are increasing. Osteoarthritis results in structural changes, leading to the deterioration of protective knee cartilage, reduced joint space, and painful bone-to-bone contact. Affecting millions worldwide, it causes pain, stiffness, and limited mobility, necessitating interventions, with Total Knee Arthroplasty (TKA) being a key solution. Annually, approximately 790,000 knee replacements are performed in the U.S., highlighting not only the widespread issue but also emphasizing the significance and effectiveness of TKA in providing relief and improving an individuals’ quality of life. The emergence of computer-assisted TKA, such as the system developed by Smith and Nephew, aims to enhance implant fitting for patients and reduce post-operative complications. Current technology relies on Infrared-based methods for registration and tracking, which are cumbersome, invasive, and introduce additional sources of error. A vision-based solution would eliminate the need for these methods, simplifying the procedure for both the surgeon and the patient. ",
+    impact: "As populations age, the incidences of osteoarthritis and rheumatoid arthritis are increasing. Osteoarthritis results in structural changes, leading to the deterioration of protective knee cartilage, reduced joint space, and painful bone-to-bone contact. Affecting millions worldwide, it causes pain, stiffness, and limited mobility, necessitating interventions, with Total Knee Arthroplasty (TKA) being a key solution. Annually, approximately 790,000 knee replacements are performed in the U.S., highlighting not only the widespread issue but also emphasizing the significance and effectiveness of TKA in providing relief and improving an individuals' quality of life. The emergence of computer-assisted TKA, such as the system developed by Smith and Nephew, aims to enhance implant fitting for patients and reduce post-operative complications. Current technology relies on Infrared-based methods for registration and tracking, which are cumbersome, invasive, and introduce additional sources of error. A vision-based solution would eliminate the need for these methods, simplifying the procedure for both the surgeon and the patient. ",
     media: [
       {
         type: 'video',
-        url: '/assets/images/paradocs2.mp4',
+        url: './assets/images/paradocs2.mp4',
         caption: 'Quick Trailer'
       },
       {
         type: 'image',
-        url: '/assets/images/paradocs3.png',
+        url: './assets/images/paradocs3.png',
         caption: 'The Poster'
       },
       {
         type: 'video',
-        url: '/assets/images/paradocs3.mp4',
+        url: './assets/images/paradocs3.mp4',
         caption: 'Accuracy over time'
       },
       {
         type: 'image',
-        url: '/assets/images/knee-surgery.jpg',
+        url: './assets/images/knee-surgery.jpg',
         caption: 'The robot'
       },
       {
         type: 'video',
-        url: '/assets/images/paradocs4.mp4',
+        url: './assets/images/paradocs4.mp4',
         caption: 'Motion Compensation'
       },
       {
         type: 'image',
-        url: '/assets/images/paradocs2.jpg',
+        url: './assets/images/paradocs2.jpg',
         caption: 'The Team'
       },
       {
         type: 'image',
-        url: '/assets/images/paradocs1.jpg',
+        url: './assets/images/paradocs1.jpg',
         caption: 'The class'
       },
-
-
     ],
     externalLink: "https://mrsdprojects.ri.cmu.edu/2024teame/",
     additionalLinkName: "Project Trailer",
@@ -79,7 +77,7 @@ export const projectsData: Project[] = [
     year: "May 2024 - August 2024",
     description: "Developed navigation systems for autonomous hospital logistics robots at Aethon, improving healthcare efficiency.",
     longDescription: "The project focuses on developing a sensor-agnostic motion forecasting system for environmental agents, specifically for robots used in hospital settings. The goal is to address navigation challenges caused by moving obstacles, such as people or objects, that can lead to deadlocks or unsafe situations. By predicting the trajectories of moving objects using point cloud data, the system integrates this information into the robot's costmap to enhance its local planning and obstacle avoidance capabilities. This approach avoids privacy concerns by not relying on RGB cameras and works across different generations of robots with varying sensor suites.",
-    images: ["/assets/images/aethon-robot.png"],
+    images: ["./assets/images/aethon-robot.png"],
     bullets: [
       ""
     ],
@@ -89,32 +87,32 @@ export const projectsData: Project[] = [
     media: [
       {
         type: 'image',
-        url: '/assets/images/aethon0.jpg',
+        url: './assets/images/aethon0.jpg',
         caption: 'Obstaclaw'
       },
       {
         type: 'video',
-        url: '/assets/images/aethon1.mp4',
+        url: './assets/images/aethon1.mp4',
         caption: 'Result demonstration'
       },
       {
         type: 'video',
-        url: '/assets/images/aethon2.mp4',
+        url: './assets/images/aethon2.mp4',
         caption: 'Result demonstration'
       },
       {
         type: 'image',
-        url: '/assets/images/Aethon1.jpg',
+        url: './assets/images/Aethon1.jpg',
         caption: 'The problem'
       },
       {
         type: 'image',
-        url: '/assets/images/aethon2.jpg',
+        url: './assets/images/aethon2.jpg',
         caption: 'why the problem exists'
       },
       {
         type: 'image',
-        url: '/assets/images/aethon3.jpg',
+        url: './assets/images/aethon3.jpg',
         caption: 'Solution'
       }
     ],
@@ -126,7 +124,7 @@ export const projectsData: Project[] = [
     year: "August 2021 - December 2021",
     description: "Semantic segmentation of fundus images for the lab working on smartphone-based analysis of Fundus images to diagnose cardiac health.",
     longDescription: "Dr. Harish Kumar J.R.'s lab has a lot of work on fundus image analysis. There are multiple researchers working on things like Glaucoma detection, Diabetic Retinopathy detection, and Oximetry. An important component for any of these is the vessel segmentation of the fundus images. I worked with a fellow researcher, V. Manushree on this. \n Title: EFFICIENT LEARNING WITH LESS DATA FOR VESSEL EXTRACTION AND CLASSIFICATION IN SINGLE-WAVELENGTH FUNDUS IMAGES \n Paramjit Singh Baweja, V. Manushree, J.R. Harish Kumar.",
-    images: ["/assets/images/Fundus.jpg"],
+    images: ["./assets/images/Fundus.jpg"],
     bullets: [
       "Developed precision control systems for surgical robotics",
       "Implemented safety protocols and redundancy checks",
@@ -138,12 +136,12 @@ export const projectsData: Project[] = [
     media: [
       {
         type: 'image',
-        url: '/assets/images/Fundus1.jpg',
+        url: './assets/images/Fundus1.jpg',
         caption: 'Pipeline for fundus image analysis'
       },
       {
         type: 'image',
-        url: '/assets/images/Fundus.jpg',
+        url: './assets/images/Fundus.jpg',
         caption: 'Results'
       }
     ],
@@ -155,7 +153,7 @@ export const projectsData: Project[] = [
     year: "August 2021 - December 2021",
     description: " ",
     longDescription: "This work focuses on a shared autonomy framework for robotic surgical systems, specifically focusing on pattern cutting tasks using the da Vinci Research Kit (dVRK) on thin elastic materials. We developed a motion generator that allows real-time user adjustments to pre-planned trajectories, addressing challenges like material deformation during cutting. Their approach achieved a 100% success rate in circular cutting tasks on gauze, with improved precision and efficiency compared to previous methods. The framework was tested on materials with varying elasticity and demonstrated robustness across different patterns.",
-    images: ["/assets/images/dvrk.jpg"],
+    images: ["./assets/images/dvrk.jpg"],
     bullets: [
       ""
     ],
@@ -165,27 +163,27 @@ export const projectsData: Project[] = [
     media: [
       {
         type: 'image',
-        url: '/assets/images/dvrk.jpg',
+        url: './assets/images/dvrk.jpg',
         caption: 'The robot'
       },
       {
         type: 'video',
-        url: '/assets/images/dvrk1.mp4',
+        url: './assets/images/dvrk1.mp4',
         caption: 'Circle cutting on deformable material'
       },
       {
         type: 'image',
-        url: '/assets/images/dvrk1.jpg',
+        url: './assets/images/dvrk1.jpg',
         caption: 'Different patterns on different elastic materials'
       },
       {
         type: 'image',
-        url: '/assets/images/dvrk2.png',
+        url: './assets/images/dvrk2.png',
         caption: 'Different patterns on different elastic materials'
       },
       {
         type: 'image',
-        url: '/assets/images/dvrk3.jpg',
+        url: './assets/images/dvrk3.jpg',
         caption: 'Different patterns on different elastic materials'
       },
     ],
@@ -199,7 +197,7 @@ export const projectsData: Project[] = [
     year: "2021",
     description: " ",
     longDescription: "This work focuses on developing an acoustic-based docking system for the Coral Reef Monitoring Robot (C-Bot), an autonomous underwater vehicle (AUV) designed for long-term coral reef monitoring. The proposed system uses a 2D imaging sonar as the primary sensor, which is robust to poor lighting and visibility conditions commonly encountered underwater. This approach reduces the need for multiple sensors, simplifying the docking process while maintaining accuracy. The docking algorithm was tested in simulations, demonstrating its ability to guide the C-Bot to a stationary dock even under various noise conditions..",
-    images: ["/assets/images/nio-bot.png"],
+    images: ["./assets/images/nio-bot.png"],
     bullets: [
       " ",
     ],
@@ -209,32 +207,32 @@ export const projectsData: Project[] = [
     media: [
       {
         type: 'video',
-        url: '/assets/images/nio1.mp4',
+        url: './assets/images/nio1.mp4',
         caption: 'The robot docking'
       },
       {
         type: 'image',
-        url: '/assets/images/nio2.jpg',
+        url: './assets/images/nio2.jpg',
         caption: 'Docking Steps'
       },
       {
         type: 'video',
-        url: '/assets/images/nio2.mp4',
+        url: './assets/images/nio2.mp4',
         caption: 'Simulation environment'
       },
       {
         type: 'image',
-        url: '/assets/images/nio-bot.png',
+        url: './assets/images/nio-bot.png',
         caption: 'The robot'
       },
       {
         type: 'image',
-        url: '/assets/images/nio3.jpg',
+        url: './assets/images/nio3.jpg',
         caption: 'Errors'
       },
       {
         type: 'image',
-        url: '/assets/images/nio4.jpg',
+        url: './assets/images/nio4.jpg',
         caption: 'Sensor view'
       },
     ],
@@ -247,7 +245,7 @@ export const projectsData: Project[] = [
     title: "Multi-Robot Systems Research",
     year: "2021",
     description: "Introduction to research: developed innovative motion planning algorithms for multi-robot systems, later enhancing it with blockchain technology for an iROS workshop presentation.",
-    images: ["/assets/images/IROS.jpg"],
+    images: ["./assets/images/IROS.jpg"],
     bullets: [
       " "
     ],
@@ -256,30 +254,29 @@ export const projectsData: Project[] = [
     role: "I worked on porting the intial implementation from ROS melodic to ROS2, getting the simulation environment up and running, in time when ROS2 was newly introduced, with little support. I tested and validated the system using TurtleBot robots in simulation environments, analyzing its performance under various conditions such as sparse environments.",
     impact: "The project has a wide range of applications in areas like rescue missions, military operations, firefighting, and industrial automation. By leveraging blockchain's decentralized structure, it eliminates single points of failure and ensures secure communication among robots. This results in faster and more efficient mapping with minimized redundancies. The system is particularly effective in time-sensitive scenarios or environments with limited features, as it enables accurate localization and mapping while avoiding inter-robot collisions. Additionally, it supports dynamic scaling by allowing new robots to join the network without disrupting ongoing operations, making it a highly adaptable solution for real-world challenges.",
     media: [
-
       {
         type: 'image',
-        url: '/assets/images/iros3.jpg',
+        url: './assets/images/iros3.jpg',
         caption: 'mapping environment'
       },
       {
         type: 'image',
-        url: '/assets/images/iros2.jpg',
+        url: './assets/images/iros2.jpg',
         caption: 'mapping result'
       },
       {
         type: 'image',
-        url: '/assets/images/iros2.png',
+        url: './assets/images/iros2.png',
         caption: 'Presentation title'
       },
       {
         type: 'image',
-        url: '/assets/images/IROS.jpg',
+        url: './assets/images/IROS.jpg',
         caption: 'Overview of the system'
       },
       {
         type: 'image',
-        url: '/assets/images/iros1.gif',
+        url: './assets/images/iros1.gif',
         caption: 'mapping visualization'
       }
     ],
@@ -293,7 +290,7 @@ export const projectsData: Project[] = [
     year: "2019 - 2022",
     description: "Began exploring robotics through driverless car development, laying the foundation for my passion in autonomous systems.",
     longDescription: "Began exploring robotics through driverless car development, laying the foundation for my passion in autonomous systems. While Formula Manipal consistently won races at Formula Bharat, we needed to introduce a driverless subsystem to compete in the international versions of the competition.",
-    images: ["/assets/images/formula.jpeg"],
+    images: ["./assets/images/formula.jpeg"],
     bullets: [
       "Won first place at the Formula Student India 2021 Software Awards among 57 teams",
       "Coordinated multidisciplinary teams to develop a ROS-compatible drive-by-wire system",
@@ -306,22 +303,22 @@ export const projectsData: Project[] = [
     media: [
       {
         type: 'video',
-        url: '/assets/images/Formula-Accln.mp4',
+        url: './assets/images/Formula-Accln.mp4',
         caption: 'Manual Acceleration test of car'
       },
       {
         type: 'video',
-        url: '/assets/images/Perception.mp4',
+        url: './assets/images/Perception.mp4',
         caption: 'Monoccular depth perception'
       },
       {
         type: 'image',
-        url: '/assets/images/formula2.jpg',
+        url: './assets/images/formula2.jpg',
         caption: 'Formula Bharat 2020'
       },
       {
         type: 'image',
-        url: '/assets/images/formula.jpeg',
+        url: './assets/images/formula.jpeg',
         caption: 'Formula Bharat 2020'
       }
     ],
